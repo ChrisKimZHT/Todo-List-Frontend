@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Navbar from './navbar';
-import Home from './home';
-import Todo from './todo'
-import Note from './note';
+import Navbar from './page/navbar';
+import Home from './page/home';
+import Todo from './page/todo'
+import Note from './page/note';
 
 class App extends Component {
     state = {}
