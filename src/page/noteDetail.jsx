@@ -14,7 +14,7 @@ class NoteDetail extends Component {
         const localStorageData = localStorage.getItem('reminderData');
         if (localStorageData) {
             this.state.reminderData = JSON.parse(localStorageData);
-            this.state.selectedData = this.state.reminderData[props.params.id - 1];
+            this.state.selectedData = this.state.reminderData.find(x => x.id === parseInt(props.params.id));
         }
     }
 
