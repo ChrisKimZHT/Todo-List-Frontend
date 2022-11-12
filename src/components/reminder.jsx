@@ -40,7 +40,7 @@ class Reminder extends Component {
                         <div className="col" key={x.id}>
                             <div className="card">
                                 <div className="card-body">
-                                    <Link className="detail-link" to={`/note/${x.id}`}><h2 className="h2 card-title">{x.title}</h2></Link>
+                                    <Link className="detail-link" to={`/note/${x.id}`}><h2 className="h2 card-title">{x.title ? x.title : "无标题"}</h2></Link>
                                     <div className="card-text">{x.content}</div>
                                     <div className="fw-light float-end">{x.date}</div>
                                 </div>
