@@ -8,6 +8,14 @@ class Note extends Component {
         reminderData: [],
     }
 
+    constructor() {
+        super();
+        const localStorageData = localStorage.getItem('reminderData');
+        if (localStorageData) {
+            this.state.reminderData = JSON.parse(localStorageData);
+        }
+    }
+
     // 将备忘录加入数据列表中
     handleAdd = (title, content) => {
         const reminderData = [...this.state.reminderData];
@@ -15,8 +23,9 @@ class Note extends Component {
             id: reminderData.length + 1,
             title: title,
             content: content,
-            date: dayjs(),
+            date: dayjs().format("YYYY-MM-DD HH:mm"),
         })
+        localStorage.setItem('reminderData', JSON.stringify(reminderData));
         this.setState({ reminderData })
     }
 

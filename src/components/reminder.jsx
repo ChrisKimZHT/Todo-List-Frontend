@@ -41,7 +41,7 @@ class Reminder extends Component {
                                 <div className="card-body">
                                     <h4 className="card-title">{x.title}</h4>
                                     <div className="card-text">{x.content}</div>
-                                    <div className="fw-light float-end">{x.date.format("YYYY-MM-DD HH:mm")}</div>
+                                    <div className="fw-light float-end">{x.date}</div>
                                 </div>
                             </div>
                         </div>
