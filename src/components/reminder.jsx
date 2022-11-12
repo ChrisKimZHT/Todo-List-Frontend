@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import './reminder.css'
+import { Link } from 'react-router-dom';
+import './reminder.scss'
 
 class Reminder extends Component {
     state = {
@@ -34,12 +35,12 @@ class Reminder extends Component {
     render() {
         return (
             <React.Fragment>
-                <div className="row row-cols-1 row-cols-md-4 g-4">
+                <div className="div-reminder row row-cols-1 row-cols-md-4 g-4">
                     {this.props.reminderData.map(x =>
                         <div className="col" key={x.id}>
                             <div className="card">
                                 <div className="card-body">
-                                    <h4 className="card-title">{x.title}</h4>
+                                    <Link className="detail-link" to={`/note/${x.id}`}><h2 className="h2 card-title">{x.title}</h2></Link>
                                     <div className="card-text">{x.content}</div>
                                     <div className="fw-light float-end">{x.date}</div>
                                 </div>

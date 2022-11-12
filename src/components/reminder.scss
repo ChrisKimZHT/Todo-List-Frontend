@@ -1,0 +1,21 @@
+.div-reminder {
+    .card-title {
+        min-height: calc(1.2em);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .card-text {
+        display: -webkit-box;
+        -webkit-line-clamp: 8;
+        -webkit-box-orient: vertical;
+        min-height: calc(1em * 8 * 1.5);
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .detail-link {
+        text-decoration: none;
+    }
+}
