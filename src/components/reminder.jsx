@@ -40,7 +40,8 @@ class Reminder extends Component {
                             <div className="card">
                                 <div className="card-body">
                                     <h4 className="card-title">{x.title}</h4>
-                                    <p className="card-text">{x.content}</p>
+                                    <div className="card-text">{x.content}</div>
+                                    <div className="fw-light float-end">{x.date.format("YYYY-MM-DD HH:mm")}</div>
                                 </div>
                             </div>
                         </div>
@@ -49,7 +50,7 @@ class Reminder extends Component {
                         <div className="card">
                             <div className="card-body">
                                 <input type="text" className="form-control" placeholder="添加新的便签" value={this.state.inputTitle} onChange={(val) => this.inputTitleChange(val)} />
-                                <textarea className="form-control mt-2" rows="5" value={this.state.inputContent} onChange={(val) => this.inputContentChange(val)}></textarea>
+                                <textarea className="form-control mt-2" rows="6" placeholder="在此输入内容" value={this.state.inputContent} onChange={(val) => this.inputContentChange(val)}></textarea>
                                 <button type="button" className="btn btn-primary ms-2 mt-2 float-end" onClick={this.handleAdd}>保存</button>
                                 <button type="button" className="btn btn-danger ms-2 mt-2 float-end" onClick={this.handleReset}>重置</button>
                             </div>
