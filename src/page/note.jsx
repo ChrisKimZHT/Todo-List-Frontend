@@ -32,7 +32,7 @@ class Note extends Component {
     render() {
         return (
             <React.Fragment>
-                <h1>Note Component</h1>
+                <h1 className="mt-3 mb-3">我的便签</h1>
                 <Reminder
                     reminderData={this.state.reminderData}
                     handleAdd={this.handleAdd}
