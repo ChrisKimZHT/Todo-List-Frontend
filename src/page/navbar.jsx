@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router';
 import icon from '../static/images/icon.png';
@@ -16,8 +16,8 @@ const Navbar = () => {
                 <div className="collapse navbar-collapse">
                     <div className="navbar-nav">
                         <Link className={`nav-link ${currentPath === "/" ? "active" : ""}`} aria-current="page" to="/">首页</Link>
-                        <Link className={`nav-link ${currentPath === "/todo" ? "active" : ""}`} to="/todo">代办</Link>
-                        <Link className={`nav-link ${currentPath === "/note" ? "active" : ""}`} to="/note">便签</Link>
+                        <Link className={`nav-link ${currentPath.substring(0, 5) === "/todo" ? "active" : ""}`} to="/todo">代办</Link>
+                        <Link className={`nav-link ${currentPath.substring(0, 5) === "/note" ? "active" : ""}`} to="/note">便签</Link>
                     </div>
                 </div>
             </div>
