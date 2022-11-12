@@ -36,7 +36,7 @@ class Reminder extends Component {
             <React.Fragment>
                 <div className="row row-cols-1 row-cols-md-4 g-4 m-2">
                     {this.props.reminderData.map(x =>
-                        <div className="col">
+                        <div className="col" key={x.id}>
                             <div className="card">
                                 <div className="card-body">
                                     <h4 className="card-title">{x.title}</h4>
