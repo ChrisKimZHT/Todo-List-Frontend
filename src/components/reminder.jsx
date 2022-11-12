@@ -34,36 +34,28 @@ class Reminder extends Component {
     render() {
         return (
             <React.Fragment>
-                <table className="table table-striped table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">标题</th>
-                            <th scope="col">摘要</th>
-                            <th scope="col">添加日期</th>
-                        </tr>
-                    </thead>
-                    <tbody> {this.props.reminderData.map(x =>
-                        <tr key={x.id}>
-                            <th scope="row">{x.id}</th>
-                            <td>{x.title}</td>
-                            <td>{x.content}</td>
-                            <td>{x.date.format('YYYY-MM-DD HH:mm')}</td>
-                        </tr>
+                <div className="row row-cols-1 row-cols-md-4 g-4 m-2">
+                    {this.props.reminderData.map(x =>
+                        <div className="col">
+                            <div className="card">
+                                <div className="card-body">
+                                    <h4 className="card-title">{x.title}</h4>
+                                    <p className="card-text">{x.content}</p>
+                                </div>
+                            </div>
+                        </div>
                     )}
-                    </tbody>
-                </table>
-                <h3>添加新便签</h3>
-                <div className="mb-2">
-                    <label htmlFor="title" className="form-label">标题</label>
-                    <input type="text" className="form-control" id="title" value={this.state.inputTitle} onChange={(val) => this.inputTitleChange(val)} />
+                    <div className="col">
+                        <div className="card">
+                            <div className="card-body">
+                                <input type="text" className="form-control" placeholder="添加新的便签" value={this.state.inputTitle} onChange={(val) => this.inputTitleChange(val)} />
+                                <textarea className="form-control mt-2" rows="5" value={this.state.inputContent} onChange={(val) => this.inputContentChange(val)}></textarea>
+                                <button type="button" className="btn btn-primary ms-2 mt-2 float-end" onClick={this.handleAdd}>保存</button>
+                                <button type="button" className="btn btn-danger ms-2 mt-2 float-end" onClick={this.handleReset}>重置</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div className="mb-2">
-                    <label htmlFor="content" className="form-label">内容</label>
-                    <textarea className="form-control" id="content" rows="4" value={this.state.inputContent} onChange={(val) => this.inputContentChange(val)}></textarea>
-                </div>
-                <button type="button" className="btn btn-primary m-2" onClick={this.handleAdd}>保存</button>
-                <button type="button" className="btn btn-danger m-2" onClick={this.handleReset}>重置</button>
             </React.Fragment>
         );
     }
