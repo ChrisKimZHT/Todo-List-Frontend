@@ -1,0 +1,28 @@
+.div-todolist {
+    table {
+        table-layout: fixed;
+        width: 100%;
+    }
+
+    tr {
+        height: 36px;
+    }
+
+    td {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    th.table-date {
+        width: 15%;
+    }
+
+    th.table-title {
+        width: 70%;
+    }
+
+    th.table-button {
+        width: 15%;
+    }
+}

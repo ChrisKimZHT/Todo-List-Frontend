@@ -16,6 +16,7 @@ class App extends Component {
                     <Routes>
                         <Route path='/' element={<HomePage />}></Route>
                         <Route path='/todo' element={<TodoPage />}></Route>
+                        <Route path='/todo/:id/*'></Route>
                         <Route path='/note' element={<NotePage />}></Route>
                         <Route path='/note/:id/*' element={<NotePageDetail />}></Route>
                     </Routes>
