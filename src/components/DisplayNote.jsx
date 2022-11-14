@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 
-const ShowReminder = (props) => {
+const DisplayNote = (props) => {
     return (
         <div className="card">
             <div className="card-header">
@@ -20,4 +20,4 @@ const ShowReminder = (props) => {
     );
 }
 
-export default ShowReminder;
+export default DisplayNote;

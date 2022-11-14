@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import './reminder.scss'
+import './NoteList.scss'
 
-class Reminder extends Component {
+class NoteList extends Component {
     state = {
         inputTitle: "",
         inputContent: "",
@@ -36,7 +36,7 @@ class Reminder extends Component {
         return (
             <React.Fragment>
                 <div className="div-reminder row row-cols-1 row-cols-md-4 g-4">
-                    {this.props.reminderData.map(x =>
+                    {this.props.noteData.map(x =>
                         <div className="col" key={x.id}>
                             <div className="card">
                                 <div className="card-body">
@@ -63,4 +63,4 @@ class Reminder extends Component {
     }
 }
 
-export default Reminder;
+export default NoteList;

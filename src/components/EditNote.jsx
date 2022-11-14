@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class EditReminder extends Component {
+class EditNote extends Component {
     state = {
         inputTitle: "",
         inputContent: "",
@@ -48,4 +48,4 @@ class EditReminder extends Component {
     }
 }
 
-export default EditReminder;
+export default EditNote;

@@ -4,7 +4,7 @@ import { useLocation } from 'react-router';
 import icon from '../static/images/icon.png';
 
 
-const Navbar = () => {
+const NavBar = () => {
     const currentPath = useLocation().pathname;
     return (
         <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
@@ -25,4 +25,4 @@ const Navbar = () => {
     );
 }
 
-export default Navbar;
+export default NavBar;
