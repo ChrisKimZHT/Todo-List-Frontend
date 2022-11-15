@@ -28,9 +28,14 @@ class Calender extends Component {
                                 <tr>
                                     {
                                         r.map(c => ( // 列
-                                            <td>
-                                                {c ? c.date() : ""}
-                                            </td>
+                                            c ? (
+                                                <td onClick={() => this.props.handleSelectDay(c.date())}
+                                                    className={this.props.day === c.date() ? "selected" : ""}>
+                                                    {c.date()}
+                                                </td>
+                                            ) : (
+                                                <td></td>
+                                            )
                                         ))
                                     }
                                 </tr>
