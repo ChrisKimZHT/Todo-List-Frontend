@@ -3,7 +3,7 @@ import { Route, Routes, useParams } from 'react-router';
 import DisplayTodo from '../components/DisplayTodo';
 import EditTodo from '../components/EditTodo';
 
-class TodoPageDetail extends Component {
+class TodoPageDetailClass extends Component {
     state = {
         todoData: [],
         selectedData: {},
@@ -52,9 +52,13 @@ class TodoPageDetail extends Component {
     }
 }
 
-export default (props) => (
-    <TodoPageDetail
-        {...props}
-        params={useParams()}
-    />
-)
+const TodoPageDetail = (props) => {
+    return (
+        <TodoPageDetailClass
+            {...props}
+            params={useParams()}
+        />
+    );
+}
+
+export default TodoPageDetail;

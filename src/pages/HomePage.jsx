@@ -3,7 +3,11 @@ import React, { Component } from 'react';
 class HomePage extends Component {
     state = {}
     render() {
-        return (<h1>Home Component</h1>);
+        return (
+            <React.Fragment>
+                <h1 className="mt-3 mb-3">提醒事项</h1>
+            </React.Fragment>
+        );
     }
 }
 

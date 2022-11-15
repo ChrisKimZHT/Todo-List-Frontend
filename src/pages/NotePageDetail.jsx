@@ -4,7 +4,7 @@ import { Route, Routes, useParams } from 'react-router';
 import EditNote from '../components/EditNote';
 import DisplayNote from '../components/DisplayNote';
 
-class NoteDetail extends Component {
+class NotePageDetailClass extends Component {
     state = {
         noteData: [],
         selectedData: {},
@@ -55,9 +55,13 @@ class NoteDetail extends Component {
     }
 }
 
-export default (props) => (
-    <NoteDetail
-        {...props}
-        params={useParams()}
-    />
-)
+const NotePageDetail = (props) => {
+    return (
+        <NotePageDetailClass
+            {...props}
+            params={useParams()}
+        />
+    );
+}
+
+export default NotePageDetail;
