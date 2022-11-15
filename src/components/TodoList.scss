@@ -8,18 +8,14 @@
         height: 36px;
     }
 
-    td {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
     th.table-date {
         width: 15%;
     }
 
-    th.table-title {
-        width: 70%;
+    .table-title {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     th.table-button {
