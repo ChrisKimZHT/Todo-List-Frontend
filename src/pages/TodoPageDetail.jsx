@@ -21,11 +21,11 @@ class TodoPageDetail extends Component {
     }
 
     handleDelete = () => {
-        const noteData = this.state.noteData.filter(
+        const todoData = this.state.todoData.filter(
             x => x.id !== this.state.selectedData.id
         );
-        this.setState({ noteData });
-        localStorage.setItem("noteData", JSON.stringify(noteData));
+        this.setState({ todoData });
+        localStorage.setItem("todoData", JSON.stringify(todoData));
         window.history.back(-1);
     }
 
