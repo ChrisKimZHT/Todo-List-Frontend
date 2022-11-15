@@ -29,13 +29,23 @@ class TodoPageDetail extends Component {
         window.history.back(-1);
     }
 
+    handleEdit = (data) => {
+        const todoData = [...this.state.todoData];
+        const selectedData = { ...data };
+        this.setState({ selectedData });
+        todoData[this.state.selectedIndex] = selectedData;
+        this.setState({ todoData });
+        localStorage.setItem('todoData', JSON.stringify(todoData));
+        window.history.back(-1);
+    }
+
     render() {
         return (
             <React.Fragment>
                 <h1 className="mt-3 mb-3">待办事项</h1>
                 <Routes>
                     <Route path="/" element={<DisplayTodo {...this.state.selectedData} handleDelete={this.handleDelete} />}></Route>
-                    <Route path="/edit" element={<EditTodo />}></Route>
+                    <Route path="/edit" element={<EditTodo {...this.state.selectedData} handleEdit={this.handleEdit} />}></Route>
                 </Routes>
             </React.Fragment>
         );
