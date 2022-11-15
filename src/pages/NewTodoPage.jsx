@@ -31,8 +31,8 @@ class NewTodoPage extends Component {
             title: this.state.inputTitle,
             detail: this.state.inputDetail,
             isDeadLine: this.state.isDeadLine,
-            begin: this.state.inputBeginTime,
-            end: this.state.inputEndTime,
+            begin: dayjs(this.state.inputBeginTime).format("YYYY-MM-DD HH:mm"),
+            end: dayjs(this.state.inputEndTime).format("YYYY-MM-DD HH:mm"),
         });
         this.setState({ todoData });
         localStorage.setItem('todoData', JSON.stringify(todoData));
