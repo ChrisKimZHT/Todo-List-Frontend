@@ -16,7 +16,7 @@ const NavBar = () => {
                 <div className="collapse navbar-collapse">
                     <div className="navbar-nav">
                         <Link className={`nav-link ${currentPath === "/" ? "active" : ""}`} aria-current="page" to="/">首页</Link>
-                        <Link className={`nav-link ${currentPath.substring(0, 5) === "/todo" ? "active" : ""}`} to="/todo">代办</Link>
+                        <Link className={`nav-link ${currentPath.substring(0, 5) === "/todo" ? "active" : ""}`} to="/todo">待办</Link>
                         <Link className={`nav-link ${currentPath.substring(0, 5) === "/note" ? "active" : ""}`} to="/note">便签</Link>
                     </div>
                 </div>
