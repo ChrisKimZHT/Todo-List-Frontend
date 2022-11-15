@@ -45,12 +45,21 @@ class TodoPage extends Component {
         localStorage.setItem('todoIndex', this.state.todoIndex + 1);
     }
 
+    handleDelete = (id) => {
+        const todoData = this.state.todoData.filter(
+            x => x.id !== id
+        );
+        this.setState({ todoData });
+        localStorage.setItem("todoData", JSON.stringify(todoData));
+    }
+
     render() {
         return (
             <React.Fragment>
                 <h1 className="mt-3 mb-3">待办事项</h1>
                 <TodoList
                     todoData={this.state.todoData}
+                    handleDelete={this.handleDelete}
                 />
             </React.Fragment>
         );

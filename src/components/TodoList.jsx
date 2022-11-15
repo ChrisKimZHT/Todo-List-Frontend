@@ -24,7 +24,7 @@ class TodoList extends Component {
                                     <td align="center">
                                         <Link to={`/todo/${x.id}`} className="p-0 ps-2 pe-2 me-2 btn btn-outline-success btn-sm">详情</Link>
                                         <Link to={`/todo/${x.id}/edit`} className="p-0 ps-2 pe-2 me-2 btn btn-outline-primary btn-sm">编辑</Link>
-                                        <button className="p-0 ps-2 pe-2 me-2 btn btn-outline-danger btn-sm">删除</button>
+                                        <button onClick={() => this.props.handleDelete(x.id)} className="p-0 ps-2 pe-2 me-2 btn btn-outline-danger btn-sm">删除</button>
                                     </td>
                                 </tr>
                             )}
