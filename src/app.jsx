@@ -9,24 +9,24 @@ import TodoPageDetail from './pages/TodoPageDetail';
 import NewTodoPage from './pages/NewTodoPage';
 
 class App extends Component {
-    state = {}
-    render() {
-        return (
-            <React.Fragment>
-                <NavBar />
-                <div className='container'>
-                    <Routes>
-                        <Route path='/' element={<HomePage />}></Route>
-                        <Route path='/todo' element={<TodoPage />}></Route>
-                        <Route path='/todo/new' element={<NewTodoPage />}></Route>
-                        <Route path='/todo/:id/*' element={<TodoPageDetail />}></Route>
-                        <Route path='/note' element={<NotePage />}></Route>
-                        <Route path='/note/:id/*' element={<NotePageDetail />}></Route>
-                    </Routes>
-                </div>
-            </React.Fragment>
-        );
-    }
+  state = {}
+  render() {
+    return (
+      <React.Fragment>
+        <NavBar />
+        <div className='container'>
+          <Routes>
+            <Route path='/' element={<HomePage />}></Route>
+            <Route path='/todo' element={<TodoPage />}></Route>
+            <Route path='/todo/new' element={<NewTodoPage />}></Route>
+            <Route path='/todo/:id/*' element={<TodoPageDetail />}></Route>
+            <Route path='/note' element={<NotePage />}></Route>
+            <Route path='/note/:id/*' element={<NotePageDetail />}></Route>
+          </Routes>
+        </div>
+      </React.Fragment>
+    );
+  }
 }
 
 export default App;
