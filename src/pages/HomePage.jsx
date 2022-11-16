@@ -75,14 +75,14 @@ class HomePage extends Component {
     }
 
     filterTodoList = (year, month, day) => {
-        const filteredData = this.state.todoData.filter(x => {
+        const filteredTodo = this.state.todoData.filter(x => {
             if (x.isDeadLine) {
                 return dayjs(x.end).isSame(`${year}-${month}-${day}`, 'day');
             } else {
                 return dayjs(x.begin).isSame(`${year}-${month}-${day}`, 'day');
             }
         });
-        this.setState({ filteredData });
+        this.setState({ filteredTodo });
     }
 
     render() {
