@@ -40,6 +40,7 @@ class NotePage extends Component {
                 <h1 className="mt-3 mb-3">我的便签</h1>
                 <NoteList
                     noteData={this.state.noteData}
+                    onlyDisplay={false}
                     handleAdd={this.handleAdd}
                 />
             </React.Fragment>
