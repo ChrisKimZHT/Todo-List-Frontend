@@ -24,17 +24,18 @@ class Calender extends Component {
                     </thead>
                     <tbody>
                         {
-                            getCalenderMat(this.props.year, this.props.month).map(r => ( // 行
-                                <tr>
+                            getCalenderMat(this.props.year, this.props.month).map((r, i) => ( // 行
+                                <tr key={i}>
                                     {
-                                        r.map(c => ( // 列
+                                        r.map((c, j) => ( // 列
                                             c ? (
                                                 <td onClick={() => this.props.handleSelectDay(c.date())}
-                                                    className={this.props.day === c.date() ? "selected" : ""}>
+                                                    className={this.props.day === c.date() ? "selected" : ""}
+                                                    key={j}>
                                                     {c.date()}
                                                 </td>
                                             ) : (
-                                                <td></td>
+                                                <td key={j}></td>
                                             )
                                         ))
                                     }
