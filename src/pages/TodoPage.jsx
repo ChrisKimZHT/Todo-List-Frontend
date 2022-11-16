@@ -44,6 +44,7 @@ class TodoPage extends Component {
                 <TodoList
                     todoData={this.state.todoData}
                     handleDelete={this.handleDelete}
+                    onlyTitle={false}
                 />
                 <Link to="/todo/new" className="btn btn-primary float-end mt-1">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-plus-circle" viewBox="0 0 16 16">
