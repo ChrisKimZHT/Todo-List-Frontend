@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Calender from '../components/Calender';
 import NoteList from '../components/NoteList';
 import TodoList from '../components/TodoList';
@@ -15,20 +16,14 @@ class HomePage extends Component {
     filteredNote: [],
   }
 
-  constructor() {
+  constructor(props) {
     super();
     const now = dayjs();
     this.state.year = now.year();
     this.state.month = now.month() + 1; // 1~12
     this.state.day = now.date(); // 1~31
-    const localStorageNoteData = localStorage.getItem('noteData');
-    if (localStorageNoteData) {
-      this.state.noteData = JSON.parse(localStorageNoteData);
-    }
-    const localStorageTodoData = localStorage.getItem('todoData');
-    if (localStorageTodoData) {
-      this.state.todoData = JSON.parse(localStorageTodoData);
-    }
+    this.state.todoData = props.todoData;
+    this.state.noteData = props.noteData;
   }
 
   inputYearChange = (val) => {
@@ -142,4 +137,12 @@ class HomePage extends Component {
   }
 }
 
-export default HomePage;
+const mapStateToProps = (state, props) => {
+  console.log(state.todo.data);
+  return {
+    todoData: state.todo.data,
+    noteData: state.note.data,
+  };
+}
+
+export default connect(mapStateToProps)(HomePage);
