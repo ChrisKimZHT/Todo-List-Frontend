@@ -1,40 +1,19 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import TodoList from '../components/TodoList';
 
 
 class TodoPage extends Component {
-  state = {
-    todoData: [],
-    todoIndex: 1,
-  }
-
-  constructor() {
-    super();
-    const localStorageData = localStorage.getItem('todoData');
-    const localStorageIndex = localStorage.getItem('todoIndex');
-    if (localStorageData) {
-      this.state.todoData = JSON.parse(localStorageData);
-      this.state.todoIndex = parseInt(localStorageIndex);
-    }
-  }
+  state = {}
 
   // 将事项数据加入数据列表
   handleAdd = (data) => {
-    const todoData = [...this.state.todoData];
-    todoData.push(data);
-    this.setState({ todoData });
-    localStorage.setItem('todoData', JSON.stringify(todoData));
-    this.setState({ todoIndex: this.state.todoIndex + 1 });
-    localStorage.setItem('todoIndex', this.state.todoIndex + 1);
+    this.props.addTodo(data);
   }
 
   handleDelete = (id) => {
-    const todoData = this.state.todoData.filter(
-      x => x.id !== id
-    );
-    this.setState({ todoData });
-    localStorage.setItem("todoData", JSON.stringify(todoData));
+    this.props.deleteTodoByID(id);
   }
 
   render() {
@@ -42,7 +21,7 @@ class TodoPage extends Component {
       <React.Fragment>
         <h1 className="mt-3 mb-3">待办事项</h1>
         <TodoList
-          todoData={this.state.todoData}
+          todoData={this.props.todoData}
           handleDelete={this.handleDelete}
           onlyTitle={false}
         />
@@ -58,4 +37,26 @@ class TodoPage extends Component {
   }
 }
 
-export default TodoPage;
+const mapStateToProps = (state, props) => {
+  return {
+    todoData: state.todo.data,
+    todoIndex: state.todo.index,
+  };
+}
+
+const mapDispatchToProps = {
+  addTodo: (data) => {
+    return {
+      type: 'addTodo',
+      value: data,
+    };
+  },
+  deleteTodoByID: (id) => {
+    return {
+      type: 'deleteTodoByID',
+      value: id,
+    };
+  },
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoPage);

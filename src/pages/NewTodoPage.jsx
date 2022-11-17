@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
+import { connect } from 'react-redux';
 
 class NewTodoPage extends Component {
   state = {
-    todoData: [],
-    todoIndex: 1,
     inputTitle: "",
     inputDetail: "",
     isDeadLine: false,
@@ -13,31 +12,16 @@ class NewTodoPage extends Component {
     inputEndTime: "",
   }
 
-  constructor() {
-    super();
-    const localStorageData = localStorage.getItem('todoData');
-    const localStorageIndex = localStorage.getItem('todoIndex');
-    if (localStorageData) {
-      this.state.todoData = JSON.parse(localStorageData);
-      this.state.todoIndex = parseInt(localStorageIndex);
-    }
-  }
-
   // 将新代办加入数据列表中
   handleAdd = () => {
-    const todoData = [...this.state.todoData];
-    todoData.push({
-      id: this.state.todoIndex,
+    this.props.addTodo({
+      id: this.props.todoIndex,
       title: this.state.inputTitle,
       detail: this.state.inputDetail,
       isDeadLine: this.state.isDeadLine,
       begin: dayjs(this.state.inputBeginTime).format("YYYY-MM-DD HH:mm"),
       end: dayjs(this.state.inputEndTime).format("YYYY-MM-DD HH:mm"),
     });
-    this.setState({ todoData });
-    localStorage.setItem('todoData', JSON.stringify(todoData));
-    this.setState({ todoIndex: this.state.todoIndex + 1 });
-    localStorage.setItem('todoIndex', this.state.todoIndex + 1);
   }
 
   // 监测标题输入
@@ -76,7 +60,7 @@ class NewTodoPage extends Component {
         <h1 className='mt-3 mb-3'>新待办事项</h1>
         <div className="card">
           <div className="card-header">
-            {`#${this.state.todoIndex}`}
+            {`#${this.props.todoIndex}`}
           </div>
           <div className="card-body">
             <div className="input-group mb-3">
@@ -117,4 +101,19 @@ class NewTodoPage extends Component {
   }
 }
 
-export default NewTodoPage;
+const mapStateToProps = (state, props) => {
+  return {
+    todoIndex: state.todo.index,
+  };
+}
+
+const mapDispatchToProps = {
+  'addTodo': (data) => {
+    return {
+      type: 'addTodo',
+      value: data,
+    };
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewTodoPage);

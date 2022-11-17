@@ -1,41 +1,28 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Route, Routes, useParams } from 'react-router';
 import DisplayTodo from '../components/DisplayTodo';
 import EditTodo from '../components/EditTodo';
 
 class TodoPageDetailClass extends Component {
   state = {
-    todoData: [],
     selectedData: {},
     selectedIndex: 0,
   }
 
   constructor(props) {
     super();
-    const localStorageData = localStorage.getItem('todoData');
-    if (localStorageData) {
-      this.state.todoData = JSON.parse(localStorageData);
-      this.state.selectedIndex = this.state.todoData.findIndex(x => x.id === parseInt(props.params.id));
-      this.state.selectedData = this.state.todoData[this.state.selectedIndex];
-    }
+    this.state.selectedIndex = props.todoData.findIndex(x => x.id === parseInt(props.params.id));
+    this.state.selectedData = props.todoData[this.state.selectedIndex];
   }
 
   handleDelete = () => {
-    const todoData = this.state.todoData.filter(
-      x => x.id !== this.state.selectedData.id
-    );
-    this.setState({ todoData });
-    localStorage.setItem("todoData", JSON.stringify(todoData));
+    this.props.deleteTodoByIndex(this.state.selectedIndex);
     window.history.back(-1);
   }
 
   handleEdit = (data) => {
-    const todoData = [...this.state.todoData];
-    const selectedData = { ...data };
-    this.setState({ selectedData });
-    todoData[this.state.selectedIndex] = selectedData;
-    this.setState({ todoData });
-    localStorage.setItem('todoData', JSON.stringify(todoData));
+    this.props.updateTodo(this.state.selectedIndex, data);
     window.history.back(-1);
   }
 
@@ -61,4 +48,28 @@ const TodoPageDetail = (props) => {
   );
 }
 
-export default TodoPageDetail;
+const mapStateToProps = (state, props) => {
+  return {
+    todoData: state.todo.data,
+  };
+}
+
+const mapDispatchToProps = {
+  deleteTodoByIndex: (index) => {
+    return {
+      type: 'deleteTodoByIndex',
+      value: index,
+    };
+  },
+  updateTodo: (idx, data) => {
+    return {
+      type: 'updateTodo',
+      value: {
+        idx: idx,
+        data: data,
+      }
+    };
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoPageDetail);

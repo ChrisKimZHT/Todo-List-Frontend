@@ -3,43 +3,31 @@ import React, { Component } from 'react';
 import { Route, Routes, useParams } from 'react-router';
 import EditNote from '../components/EditNote';
 import DisplayNote from '../components/DisplayNote';
+import { connect } from 'react-redux';
 
 class NotePageDetailClass extends Component {
   state = {
-    noteData: [],
     selectedData: {},
     selectedIndex: 0,
   }
 
   constructor(props) {
     super();
-    const localStorageData = localStorage.getItem('noteData');
-    if (localStorageData) {
-      this.state.noteData = JSON.parse(localStorageData);
-      this.state.selectedIndex = this.state.noteData.findIndex(x => x.id === parseInt(props.params.id));
-      this.state.selectedData = this.state.noteData[this.state.selectedIndex];
-    }
+    this.state.selectedIndex = props.noteData.findIndex(x => x.id === parseInt(props.params.id));
+    this.state.selectedData = props.noteData[this.state.selectedIndex];
   }
 
   handleDelete = () => {
-    const noteData = this.state.noteData.filter(
-      x => x.id !== this.state.selectedData.id
-    );
-    this.setState({ noteData });
-    localStorage.setItem("noteData", JSON.stringify(noteData));
+    this.props.deleteNoteByIndex(this.state.selectedIndex);
     window.history.back(-1);
   }
 
   handleEdit = (title, content) => {
-    const noteData = [...this.state.noteData];
-    const selectedData = this.state.selectedData;
-    selectedData.title = title;
-    selectedData.content = content;
-    selectedData.date = dayjs().format("YYYY-MM-DD HH:mm");
-    this.setState({ selectedData });
-    noteData[this.state.selectedIndex] = selectedData;
-    this.setState({ noteData });
-    localStorage.setItem('noteData', JSON.stringify(noteData));
+    const newData = { ...this.state.selectedData };
+    newData.title = title;
+    newData.content = content;
+    newData.date = dayjs().format("YYYY-MM-DD HH:mm");
+    this.props.updateNote(this.state.selectedIndex, newData);
   }
 
   render() {
@@ -64,4 +52,28 @@ const NotePageDetail = (props) => {
   );
 }
 
-export default NotePageDetail;
+const mapStateToProps = (state, props) => {
+  return {
+    noteData: state.note.data,
+  };
+}
+
+const mapDispatchToProps = {
+  deleteNoteByIndex: (index) => {
+    return {
+      type: 'deleteNoteByIndex',
+      value: index,
+    };
+  },
+  updateNote: (idx, data) => {
+    return {
+      type: 'updateNote',
+      value: {
+        idx: idx,
+        data: data,
+      }
+    };
+  },
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NotePageDetail);
