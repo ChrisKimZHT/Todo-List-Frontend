@@ -138,7 +138,6 @@ class HomePage extends Component {
 }
 
 const mapStateToProps = (state, props) => {
-  console.log(state.todo.data);
   return {
     todoData: state.todo.data,
     noteData: state.note.data,
