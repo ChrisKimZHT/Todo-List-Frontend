@@ -24,6 +24,9 @@ class HomePage extends Component {
     this.state.day = now.date(); // 1~31
     this.state.todoData = props.todoData;
     this.state.noteData = props.noteData;
+    this.state.filteredTodo = props.todoData.filter(x => {
+      return dayjs(x.isDeadLine ? x.end : x.begin).isSame(`${now.year()}-${now.month() + 1}-${now.date()}`, 'day');
+    }); // 默认筛选出今天的待办
   }
 
   inputYearChange = (val) => {
@@ -66,16 +69,8 @@ class HomePage extends Component {
 
   handleSelectDay = (day) => {
     this.setState({ day });
-    this.filterTodoList(this.state.year, this.state.month, day);
-  }
-
-  filterTodoList = (year, month, day) => {
     const filteredTodo = this.state.todoData.filter(x => {
-      if (x.isDeadLine) {
-        return dayjs(x.end).isSame(`${year}-${month}-${day}`, 'day');
-      } else {
-        return dayjs(x.begin).isSame(`${year}-${month}-${day}`, 'day');
-      }
+      return dayjs(x.isDeadLine ? x.end : x.begin).isSame(`${this.state.year}-${this.state.month}-${day}`, 'day');
     });
     this.setState({ filteredTodo });
   }
