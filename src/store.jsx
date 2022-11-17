@@ -56,6 +56,11 @@ const noteData = (state = [], action) => {
     case 'deleteNoteByID': {
       return state.filter(x => x.id !== action.value);
     }
+    case 'updateNote': {
+      const newState = [...state];
+      newState[action.value.idx] = action.value.data;
+      return newState;
+    }
     default: {
       return state;
     }
