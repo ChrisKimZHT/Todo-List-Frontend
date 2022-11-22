@@ -123,7 +123,7 @@ class HomePage extends Component {
           <div className="card-body">
             <NoteList
               noteData={this.state.noteData}
-              onlyDisplay={true}
+              preview={true}
             />
           </div>
         </div>

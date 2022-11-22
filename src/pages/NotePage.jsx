@@ -13,8 +13,15 @@ class NotePage extends Component {
       id: this.props.noteIndex,
       title: title,
       content: content,
+      star: false,
       date: dayjs().format("YYYY-MM-DD HH:mm"),
     });
+  }
+
+  handleStar = (idx) => {
+    const newData = { ...this.props.noteData[idx] };
+    newData.star = !newData.star;
+    this.props.updateNote(idx, newData);
   }
 
   render() {
@@ -23,8 +30,9 @@ class NotePage extends Component {
         <h1 className="mt-3 mb-3">我的便签</h1>
         <NoteList
           noteData={this.props.noteData}
-          onlyDisplay={false}
+          preview={false}
           handleAdd={this.handleAdd}
+          handleStar={this.handleStar}
         />
       </React.Fragment>
     );
@@ -39,10 +47,19 @@ const mapStateToProps = (state, props) => {
 }
 
 const mapDispatchToProps = {
-  'addNote': (data) => {
+  addNote: (data) => {
     return {
       type: 'addNote',
       value: data,
+    };
+  },
+  updateNote: (idx, data) => {
+    return {
+      type: 'updateNote',
+      value: {
+        idx: idx,
+        data: data,
+      }
     };
   },
 }
