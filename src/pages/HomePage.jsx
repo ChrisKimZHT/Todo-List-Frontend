@@ -114,7 +114,7 @@ class HomePage extends Component {
             </div>
           </div>
         </div>
-        <div className="card">
+        <div className="card mb-3">
           <div className="card-header">收藏便签</div>
           <div className="card-body">
             <NoteList
