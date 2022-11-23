@@ -58,10 +58,10 @@ class NoteList extends Component {
                 <input type="text" className="form-control" placeholder="添加新的便签" value={this.state.inputTitle} onChange={(val) => this.inputTitleChange(val)} />
                 <textarea className="form-control mt-2" rows="6" placeholder="在此输入内容" value={this.state.inputContent} onChange={(val) => this.inputContentChange(val)}></textarea>
                 <button title="保存" type="button" className="btn btn-primary ms-2 mt-2 float-end" onClick={this.handleAdd}>
-                  <i class="bi bi-check-circle"></i>
+                  <i className="bi bi-check-circle"></i>
                 </button>
                 <button title="重置" type="button" className="btn btn-danger ms-2 mt-2 float-end" onClick={this.handleReset}>
-                  <i class="bi bi-arrow-counterclockwise"></i>
+                  <i className="bi bi-arrow-counterclockwise"></i>
                 </button>
               </div>
             </div>
