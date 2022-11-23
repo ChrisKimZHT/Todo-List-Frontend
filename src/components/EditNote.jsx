@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import './EditNote.scss';
 
 class EditNote extends Component {
@@ -46,7 +47,10 @@ class EditNote extends Component {
             <textarea className="form-control mt-2" rows="10" value={this.state.inputContent} onChange={(val) => this.inputContentChange(val)}></textarea>
           </div>
         </div>
-        <button onClick={this.handleEdit} title="完成" className="btn btn-success float-end ms-2 mt-2"><i class="bi bi-check-circle"></i></button>
+        <div className="float-end mt-2">
+          <Link to="./../" title="返回" className="btn btn-success"><i className="bi bi-arrow-return-left"></i></Link>
+          <button onClick={this.handleEdit} title="完成" className="btn btn-primary  ms-2 "><i class="bi bi-check-circle"></i></button>
+        </div>
       </React.Fragment >
     );
   }

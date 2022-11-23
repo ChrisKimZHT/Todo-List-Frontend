@@ -48,7 +48,7 @@ class NotePageDetailClass extends Component {
                 handleStar={this.handleStar}
               />
               <div className="mt-2 float-end">
-                <Link to="/note" title="完成" className="btn btn-success me-2"><i className="bi bi-check-circle"></i></Link>
+                <Link to="/note" title="返回" className="btn btn-success me-2"><i className="bi bi-arrow-return-left"></i></Link>
                 <Link to="./edit" title="编辑" className="btn btn-primary me-2"><i className="bi bi-pen"></i></Link>
                 <button onClick={this.handleDelete} title="删除" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
               </div>

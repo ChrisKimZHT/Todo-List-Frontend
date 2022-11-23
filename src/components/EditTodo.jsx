@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import './EditTodo.scss';
 
@@ -84,7 +85,10 @@ class EditTodo extends Component {
             </div>
           </div>
         </div >
-        <button onClick={this.handleEdit} title="完成" className="btn btn-success float-end ms-2 mt-2"><i className="bi bi-check-circle"></i></button>
+        <div className="float-end mt-2">
+          <Link to="./../" title="返回" className="btn btn-success"><i className="bi bi-arrow-return-left"></i></Link>
+          <button onClick={this.handleEdit} title="完成" className="btn btn-primary float-end ms-2"><i className="bi bi-check-circle"></i></button>
+        </div>
       </React.Fragment>
     );
   }
