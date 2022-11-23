@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import React, { Component } from 'react';
 import { Route, Routes, useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 import EditNote from '../components/EditNote';
 import DisplayNote from '../components/DisplayNote';
 import { connect } from 'react-redux';
@@ -40,11 +41,18 @@ class NotePageDetailClass extends Component {
         <h1 className="mt-3 mb-3">我的便签</h1>
         <Routes>
           <Route path="/" element={
-            <DisplayNote
-              {...this.props.noteData[this.state.selectedIndex]}
-              handleDelete={this.handleDelete}
-              handleStar={this.handleStar}
-            />
+            <React.Fragment>
+              <DisplayNote
+                {...this.props.noteData[this.state.selectedIndex]}
+                handleDelete={this.handleDelete}
+                handleStar={this.handleStar}
+              />
+              <div className="mt-2 float-end">
+                <Link to="/note" title="完成" className="btn btn-success me-2"><i class="bi bi-check-circle"></i></Link>
+                <Link to="./edit" title="编辑" className="btn btn-primary me-2"><i class="bi bi-pen"></i></Link>
+                <button onClick={this.handleDelete} title="删除" className="btn btn-danger"><i class="bi bi-trash3"></i></button>
+              </div>
+            </React.Fragment>
           }></Route>
           <Route path="/edit" element={
             <EditNote

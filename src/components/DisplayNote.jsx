@@ -1,23 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-
+import './DisplayNote.scss';
 
 const DisplayNote = (props) => {
   return (
-    <div className="card">
+    <div className="card div-display-note">
       <div className="card-header">
-        {`#${props.id} - ${props.date}`}
+        <span>{'#' + props.id}</span>
+        <span className="fw-light ms-2">{props.date}</span>
         <span className="float-end" style={{ cursor: 'pointer' }} onClick={props.handleStar}>
           <i className={`bi bi-star${props.star ? "-fill" : ""}`}></i>
         </span>
       </div>
       <div className="card-body">
-        <h3 className="card-title">{props.title}</h3>
+        <h3 className="card-title">{props.title ? props.title : "无标题"}</h3>
         <hr />
-        <p className="card-text">{props.content}</p>
-        <button onClick={props.handleDelete} className="btn btn-danger float-end ms-2">删除</button>
-        <Link to="./edit" className="btn btn-primary float-end ms-2">编辑</Link>
-        <Link to="/note" className="btn btn-success float-end ms-2">完成</Link>
+        <p className="card-text">{props.content ? props.content : "无内容"}</p>
       </div>
     </div>
   );
