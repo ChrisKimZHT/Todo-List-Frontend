@@ -10,7 +10,7 @@ const DisplayTodo = (props) => {
         <span className="float-end"><i className={`me-2 bi bi-${props.isDeadLine ? "alarm" : "check2-square"}`}></i></span>
       </div>
       <div className="card-body">
-        <h2 className="card-title">{props.title}</h2>
+        <h2 className="card-title">{props.title ? props.title : "无标题"}</h2>
         <hr />
         <ul>
           <li>类别：{props.isDeadLine ? "DDL" : "日程"}</li>

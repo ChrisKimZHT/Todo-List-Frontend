@@ -27,8 +27,8 @@ class TodoList extends Component {
                     {x.isDeadLine ? x.end : x.begin}
                   </td>
                   <td className="table-title">
-                    <span style={{ display: this.props.preview ? "none" : "" }}>{x.title}</span>
-                    <Link style={{ display: this.props.preview ? "" : "none" }} to={`/todo/${x.id}`}>{x.title}</Link>
+                    <span style={{ display: this.props.preview ? "none" : "" }}>{x.title ? x.title : "无标题"}</span>
+                    <Link style={{ display: this.props.preview ? "" : "none" }} to={`/todo/${x.id}`}>{x.title ? x.title : "无标题"}</Link>
                   </td>
                   <td className="table-button" align="center" style={{ display: this.props.preview ? "none" : "" }}>
                     <Link to={`/todo/${x.id}`} className="p-0 ps-2 pe-2 me-2 btn btn-outline-success btn-sm">详情</Link>
