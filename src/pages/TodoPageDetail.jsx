@@ -6,14 +6,12 @@ import EditTodo from '../components/EditTodo';
 
 class TodoPageDetailClass extends Component {
   state = {
-    selectedData: {},
     selectedIndex: 0,
   }
 
   constructor(props) {
     super();
     this.state.selectedIndex = props.todoData.findIndex(x => x.id === parseInt(props.params.id));
-    this.state.selectedData = props.todoData[this.state.selectedIndex];
   }
 
   handleDelete = () => {
@@ -31,8 +29,18 @@ class TodoPageDetailClass extends Component {
       <React.Fragment>
         <h1 className="mt-3 mb-3">待办事项</h1>
         <Routes>
-          <Route path="/" element={<DisplayTodo {...this.state.selectedData} handleDelete={this.handleDelete} />}></Route>
-          <Route path="/edit" element={<EditTodo {...this.state.selectedData} handleEdit={this.handleEdit} />}></Route>
+          <Route path="/" element={
+            <DisplayTodo
+              {...this.props.todoData[this.state.selectedIndex]}
+              handleDelete={this.handleDelete}
+            />
+          }></Route>
+          <Route path="/edit" element={
+            <EditTodo
+              {...this.props.todoData[this.state.selectedIndex]}
+              handleEdit={this.handleEdit}
+            />
+          }></Route>
         </Routes>
       </React.Fragment>
     );
