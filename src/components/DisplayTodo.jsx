@@ -1,12 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import './DisplayTodo.scss';
 
 const DisplayTodo = (props) => {
   return (
     <div className="card div-display-todo">
       <div className="card-header">
-        {`#${props.id}`}
+        <span>{'#' + props.id}</span>
+        <span className="fw-light ms-2">{props.isDeadLine ? props.end : props.begin}</span>
+        <span className="float-end"><i className={`me-2 bi bi-${props.isDeadLine ? "alarm" : "check2-square"}`}></i></span>
       </div>
       <div className="card-body">
         <h2 className="card-title">{props.title}</h2>
@@ -23,10 +24,6 @@ const DisplayTodo = (props) => {
         </ul>
         <hr />
         <p className="card-text">{props.detail ? props.detail : "无备注"}</p>
-        <hr />
-        <button onClick={props.handleDelete} className="btn btn-danger float-end ms-2">删除</button>
-        <Link to="./edit" className="btn btn-primary float-end ms-2">编辑</Link>
-        <Link to="/todo" className="btn btn-success float-end ms-2">完成</Link>
       </div>
     </div>
   );

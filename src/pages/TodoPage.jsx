@@ -27,7 +27,6 @@ class TodoPage extends Component {
         />
         <Link to="/todo/new" className="btn btn-primary float-end mt-1">
           <i className="bi bi-plus-circle"></i>
-          &nbsp;新建
         </Link>
       </React.Fragment>
     );
