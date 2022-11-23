@@ -83,28 +83,24 @@ class HomePage extends Component {
           <div className="card-header">待办事项</div>
           <div className="card-body">
             <div className="row">
-              <div className="col-7">
-                <h3>{`${this.state.year} 年 ${this.state.month} 月 ${this.state.day} 日的待办`}</h3>
+              <h3>{`${this.state.year} 年 ${this.state.month} 月 ${this.state.day} 日的待办`}</h3>
+              <div className="col-xl-8 col-lg-7 col-md-6">
                 <TodoList
                   todoData={this.state.filteredTodo}
                   handleDelete={this.handleDelete}
                   preview={true}
                 />
               </div>
-              <div className="col-5">
+              <div className="col-xl-4 col-lg-5 col-md-6">
                 <div className="card p-3">
                   <div className="input-group mb-2">
                     <button className="btn btn-outline-secondary" type="button" onClick={this.handleMonthDecreace}>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-left-fill" viewBox="0 0 16 16">
-                        <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
-                      </svg>
+                      <i className="bi bi-caret-left-fill"></i>
                     </button>
                     <input type="number" className="form-control" value={this.state.year} onChange={this.inputYearChange} />
                     <input type="number" className="form-control" value={this.state.month} onChange={this.inputMonthChange} />
                     <button className="btn btn-outline-secondary" type="button" onClick={this.handleMonthIncreace}>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-right-fill" viewBox="0 0 16 16">
-                        <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
-                      </svg>
+                      <i className="bi bi-caret-right-fill"></i>
                     </button>
                   </div>
                   <Calender
