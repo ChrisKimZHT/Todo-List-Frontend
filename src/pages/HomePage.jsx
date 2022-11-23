@@ -92,7 +92,7 @@ class HomePage extends Component {
                 />
               </div>
               <div className="col-xl-4 col-lg-5 col-md-6">
-                <div className="card p-3">
+                <div className="card p-3 sticky-top homepage-calender" style={{ top: "70px", zIndex: "980" }}>
                   <div className="input-group mb-2">
                     <button className="btn btn-outline-secondary" type="button" onClick={this.handleMonthDecreace}>
                       <i className="bi bi-caret-left-fill"></i>
