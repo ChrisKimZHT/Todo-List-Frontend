@@ -7,7 +7,7 @@ import icon from '../static/images/icon.png';
 const NavBar = () => {
   const currentPath = useLocation().pathname;
   return (
-    <nav className="navbar sticky-top navbar-expand-sm navbar-dark bg-dark">
+    <nav className="navbar sticky-top navbar-expand navbar-dark bg-dark">
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
           <img src={icon} alt="icon" width="25" height="25" className="d-inline-block align-text-top"></img>
