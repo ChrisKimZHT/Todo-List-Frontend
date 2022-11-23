@@ -14,7 +14,8 @@ class NewTodoPage extends Component {
       <React.Fragment>
         <h1 className='mt-3 mb-3'>新待办事项</h1>
         <EditTodo
-          id={this.props.todoIndex}
+          id={this.props.todoIndex} title="" detail=""
+          isDeadLine={false} begin="" end=""
           addMode={true}
           handleEdit={this.handleAdd}
         />
