@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import TodoList from '../components/TodoList';
 
 
@@ -16,6 +15,12 @@ class TodoPage extends Component {
     this.props.deleteTodoByID(id);
   }
 
+  handleFinish = (idx) => {
+    const newData = { ...this.props.todoData[idx] };
+    newData.isFinished = !newData.isFinished;
+    this.props.updateTodo(idx, newData);
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -23,11 +28,9 @@ class TodoPage extends Component {
         <TodoList
           todoData={this.props.todoData}
           handleDelete={this.handleDelete}
+          handleFinish={this.handleFinish}
           preview={false}
         />
-        <Link to="/todo/new" className="btn btn-primary float-end mt-1">
-          <i className="bi bi-plus-circle"></i>
-        </Link>
       </React.Fragment>
     );
   }
@@ -51,6 +54,15 @@ const mapDispatchToProps = {
     return {
       type: 'deleteTodoByID',
       value: id,
+    };
+  },
+  updateTodo: (idx, data) => {
+    return {
+      type: 'updateTodo',
+      value: {
+        idx: idx,
+        data: data,
+      }
     };
   },
 }

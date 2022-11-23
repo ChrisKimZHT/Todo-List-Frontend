@@ -45,6 +45,7 @@ class EditTodo extends Component {
       isDeadLine: this.state.isDeadLine,
       begin: dayjs(this.state.inputBeginTime).format("YYYY-MM-DD HH:mm"),
       end: dayjs(this.state.inputEndTime).format("YYYY-MM-DD HH:mm"),
+      isFinished: false,
     });
     window.history.back(-1);
   }

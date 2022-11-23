@@ -4,9 +4,19 @@ import './TodoList.scss';
 
 class TodoList extends Component {
   state = {}
+
+  deleteFinished = () => {
+    this.props.todoData.filter(x => x.isFinished === true).map(x => this.props.handleDelete(x.id));
+  }
+
   render() {
     return (
       <React.Fragment>
+        <Link to="/todo/new" className="btn btn-primary float-end mb-1" style={{ display: this.props.preview ? "none" : "" }}>
+          <i className="bi bi-plus-circle me-2"></i>
+          <span>新建</span>
+        </Link>
+        <h4>未完成</h4>
         <div className="div-todolist">
           <table className="table table-striped table-bordered table-hover">
             <thead style={{ display: this.props.preview ? "none" : "" }}>
@@ -14,31 +24,72 @@ class TodoList extends Component {
                 <th scope="col" className="table-type"></th>
                 <th scope="col" className="table-date">日期</th>
                 <th scope="col" className="table-title">事项</th>
-                <th scope="col" className="table-button">操作</th>
+                <th scope="col" className="table-finish"></th>
               </tr>
             </thead>
             <tbody>
-              {this.props.todoData.map(x =>
-                <tr key={x.id}>
+              {this.props.todoData.map((data, idx) =>
+                <tr key={data.id} style={{ display: data.isFinished ? "none" : "" }}>
                   <td className="table-type">
-                    <i className={`me-2 bi bi-${x.isDeadLine ? "alarm" : "check2-square"}`}></i>
+                    <i className={`me-2 bi bi-${data.isDeadLine ? "alarm" : "check2-square"}`}></i>
                   </td>
                   <td className="table-date" style={{ display: this.props.preview ? "none" : "" }}>
-                    {x.isDeadLine ? x.end : x.begin}
+                    {data.isDeadLine ? data.end : data.begin}
                   </td>
                   <td className="table-title">
-                    <span style={{ display: this.props.preview ? "none" : "" }}>{x.title ? x.title : "无标题"}</span>
-                    <Link style={{ display: this.props.preview ? "" : "none" }} to={`/todo/${x.id}`}>{x.title ? x.title : "无标题"}</Link>
+                    <Link to={`/todo/${data.id}`}>{data.title ? data.title : "无标题"}</Link>
                   </td>
-                  <td className="table-button" align="center" style={{ display: this.props.preview ? "none" : "" }}>
-                    <Link to={`/todo/${x.id}`} className="p-0 ps-2 pe-2 me-2 btn btn-outline-success btn-sm">详情</Link>
-                    <Link to={`/todo/${x.id}/edit`} className="p-0 ps-2 pe-2 me-2 btn btn-outline-primary btn-sm table-title">编辑</Link>
-                    <button onClick={() => this.props.handleDelete(x.id)} className="p-0 ps-2 pe-2 me-2 btn btn-outline-danger btn-sm">删除</button>
+                  <td className="table-finish" align="center" onClick={() => this.props.handleFinish(idx)}
+                    style={{ display: this.props.preview ? "none" : "", cursor: 'pointer' }}>
+                    <i className="bi bi-check-circle"></i>
                   </td>
                 </tr>
               )}
-              <tr style={{ display: this.props.todoData.length ? "none" : "" }}>
-                <td colSpan={4}>无待办</td>
+              <tr style={{ display: this.props.todoData.filter(x => x.isFinished === false).length ? "none" : "" }}>
+                <td colSpan={4}>无未完成待办</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+
+
+        <button className="btn btn-danger float-end mb-1" onClick={this.deleteFinished}
+          style={{ display: this.props.preview ? "none" : "" }}>
+          <i className="bi bi-trash3 me-2"></i>
+          <span>清空</span>
+        </button>
+        <h4>已完成</h4>
+        <div className="div-todolist">
+          <table className="table table-striped table-bordered table-hover">
+            <thead style={{ display: this.props.preview ? "none" : "" }}>
+              <tr>
+                <th scope="col" className="table-type"></th>
+                <th scope="col" className="table-date">日期</th>
+                <th scope="col" className="table-title">事项</th>
+                <th scope="col" className="table-finish"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.props.todoData.map((data, idx) =>
+                <tr key={data.id} style={{ display: data.isFinished ? "" : "none" }}>
+                  <td className="table-type">
+                    <i className={`me-2 bi bi-${data.isDeadLine ? "alarm" : "check2-square"}`}></i>
+                  </td>
+                  <td className="table-date" style={{ display: this.props.preview ? "none" : "" }}>
+                    {data.isDeadLine ? data.end : data.begin}
+                  </td>
+                  <td className="table-title">
+                    <Link to={`/todo/${data.id}`}>{data.title ? data.title : "无标题"}</Link>
+                  </td>
+                  <td className="table-finish" align="center" onClick={() => this.props.handleFinish(idx)}
+                    style={{ display: this.props.preview ? "none" : "", cursor: 'pointer' }}>
+                    <i className="bi bi-x-circle"></i>
+                  </td>
+                </tr>
+              )}
+              <tr style={{ display: this.props.todoData.filter(x => x.isFinished === true).length ? "none" : "" }}>
+                <td colSpan={4}>无已完成待办</td>
               </tr>
             </tbody>
           </table>
