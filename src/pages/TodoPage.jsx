@@ -23,7 +23,7 @@ class TodoPage extends Component {
         <TodoList
           todoData={this.props.todoData}
           handleDelete={this.handleDelete}
-          onlyTitle={false}
+          preview={false}
         />
         <Link to="/todo/new" className="btn btn-primary float-end mt-1">
           <i className="bi bi-plus-circle"></i>

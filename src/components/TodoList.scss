@@ -8,8 +8,12 @@
     height: 36px;
   }
 
-  th.table-date {
-    width: 15%;
+  .table-type {
+    width: 35px;
+  }
+
+  .table-date {
+    width: 160px;
   }
 
   .table-title {
@@ -18,8 +22,8 @@
     text-overflow: ellipsis;
   }
 
-  th.table-button {
-    width: 15%;
+  .table-button {
+    width: 180px;
   }
 
   a {

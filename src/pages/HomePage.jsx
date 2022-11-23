@@ -88,7 +88,7 @@ class HomePage extends Component {
                 <TodoList
                   todoData={this.state.filteredTodo}
                   handleDelete={this.handleDelete}
-                  onlyTitle={true}
+                  preview={true}
                 />
               </div>
               <div className="col-5">
