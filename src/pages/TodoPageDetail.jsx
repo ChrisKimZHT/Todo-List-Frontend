@@ -44,6 +44,7 @@ class TodoPageDetailClass extends Component {
           <Route path="/edit" element={
             <EditTodo
               {...this.props.todoData[this.state.selectedIndex]}
+              addMode={false}
               handleEdit={this.handleEdit}
             />
           }></Route>

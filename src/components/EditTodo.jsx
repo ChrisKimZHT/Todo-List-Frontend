@@ -36,6 +36,7 @@ class EditTodo extends Component {
     this.setState({ inputEndTime: val.target.value });
   }
 
+  // 新建/编辑时外层需要传入不同的函数，但函数名需要均为handleEdit
   handleEdit = () => {
     this.props.handleEdit({
       id: this.props.id,
@@ -54,7 +55,7 @@ class EditTodo extends Component {
         <div className="card div-edit-todo">
           <div className="card-header">
             <span>{'#' + this.props.id}</span>
-            <span className="fw-light ms-2">编辑中</span>
+            <span className="fw-light ms-2">{this.props.addMode ? "新建中" : "编辑中"}</span>
             <span className="float-end"><i className={`me-2 bi bi-${this.state.isDeadLine ? "alarm" : "check2-square"}`}></i></span>
           </div>
           <div className="card-body">
