@@ -15,6 +15,7 @@
     min-height: calc(1em * 8 * 1.5);
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: pre-wrap;
   }
 
   .detail-link {
