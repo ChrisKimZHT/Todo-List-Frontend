@@ -28,12 +28,14 @@ class NotePage extends Component {
     return (
       <React.Fragment>
         <h1 className="mt-3 mb-3">我的便签</h1>
-        <NoteList
-          noteData={this.props.noteData}
-          preview={false}
-          handleAdd={this.handleAdd}
-          handleStar={this.handleStar}
-        />
+        <div className="mb-4">
+          <NoteList
+            noteData={this.props.noteData}
+            preview={false}
+            handleAdd={this.handleAdd}
+            handleStar={this.handleStar}
+          />
+        </div>
       </React.Fragment>
     );
   }

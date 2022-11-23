@@ -27,13 +27,15 @@ class EditNote extends Component {
     window.history.back(-1);
   }
 
-
   render() {
     return (
       <React.Fragment>
         <div className="card div-editReminder">
           <div className="card-header">
             {`#${this.props.id} - 编辑中`}
+            <span className="float-end" style={{ cursor: 'pointer' }} onClick={this.props.handleStar}>
+              <i className={`bi bi-star${this.props.star ? "-fill" : ""}`}></i>
+            </span>
           </div>
           <div className="card-body">
             <h5>标题</h5>

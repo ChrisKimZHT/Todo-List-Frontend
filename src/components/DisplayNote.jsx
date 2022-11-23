@@ -7,6 +7,9 @@ const DisplayNote = (props) => {
     <div className="card">
       <div className="card-header">
         {`#${props.id} - ${props.date}`}
+        <span className="float-end" style={{ cursor: 'pointer' }} onClick={props.handleStar}>
+          <i className={`bi bi-star${props.star ? "-fill" : ""}`}></i>
+        </span>
       </div>
       <div className="card-body">
         <h3 className="card-title">{props.title}</h3>

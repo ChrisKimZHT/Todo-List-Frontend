@@ -7,14 +7,12 @@ import { connect } from 'react-redux';
 
 class NotePageDetailClass extends Component {
   state = {
-    selectedData: {},
     selectedIndex: 0,
   }
 
   constructor(props) {
     super();
     this.state.selectedIndex = props.noteData.findIndex(x => x.id === parseInt(props.params.id));
-    this.state.selectedData = props.noteData[this.state.selectedIndex];
   }
 
   handleDelete = () => {
@@ -23,10 +21,16 @@ class NotePageDetailClass extends Component {
   }
 
   handleEdit = (title, content) => {
-    const newData = { ...this.state.selectedData };
+    const newData = { ...this.props.noteData[this.state.selectedIndex] };
     newData.title = title;
     newData.content = content;
     newData.date = dayjs().format("YYYY-MM-DD HH:mm");
+    this.props.updateNote(this.state.selectedIndex, newData);
+  }
+
+  handleStar = () => {
+    const newData = { ...this.props.noteData[this.state.selectedIndex] };
+    newData.star = !newData.star;
     this.props.updateNote(this.state.selectedIndex, newData);
   }
 
@@ -35,8 +39,20 @@ class NotePageDetailClass extends Component {
       <React.Fragment>
         <h1 className="mt-3 mb-3">我的便签</h1>
         <Routes>
-          <Route path="/" element={<DisplayNote {...this.state.selectedData} handleDelete={this.handleDelete} />}></Route>
-          <Route path="/edit" element={<EditNote {...this.state.selectedData} handleEdit={this.handleEdit} />}></Route>
+          <Route path="/" element={
+            <DisplayNote
+              {...this.props.noteData[this.state.selectedIndex]}
+              handleDelete={this.handleDelete}
+              handleStar={this.handleStar}
+            />
+          }></Route>
+          <Route path="/edit" element={
+            <EditNote
+              {...this.props.noteData[this.state.selectedIndex]}
+              handleEdit={this.handleEdit}
+              handleStar={this.handleStar}
+            />
+          }></Route>
         </Routes>
       </React.Fragment>
     );

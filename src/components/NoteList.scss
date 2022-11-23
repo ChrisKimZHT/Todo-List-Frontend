@@ -1,4 +1,6 @@
 .div-reminder {
+  min-height: 272px;
+
   .card-title {
     min-height: calc(1.2em);
     white-space: nowrap;
@@ -17,5 +19,9 @@
 
   .detail-link {
     text-decoration: none;
+  }
+
+  .new-note {
+    min-height: 295px;
   }
 }

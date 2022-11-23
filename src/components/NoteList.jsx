@@ -53,7 +53,7 @@ class NoteList extends Component {
             </div>
           )}
           <div className="col" style={{ display: this.props.preview ? "none" : "block" }}>
-            <div className="card">
+            <div className="card new-note">
               <div className="card-body">
                 <input type="text" className="form-control" placeholder="添加新的便签" value={this.state.inputTitle} onChange={(val) => this.inputTitleChange(val)} />
                 <textarea className="form-control mt-2" rows="6" placeholder="在此输入内容" value={this.state.inputContent} onChange={(val) => this.inputContentChange(val)}></textarea>
