@@ -1,15 +1,42 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import dayjs from 'dayjs';
+import { service } from '../service/service';
+import { stamp2str, str2stamp } from '../utils/formatDatetime';
 import './EditTodo.scss';
 
 class EditTodo extends Component {
   state = {
-    inputTitle: this.props.title,
-    inputDetail: this.props.detail,
-    isDeadLine: this.props.isDeadLine,
-    inputBeginTime: this.props.begin,
-    inputEndTime: this.props.end,
+    id: "",
+    inputTitle: "",
+    inputDetail: "",
+    isDeadLine: "",
+    inputBeginTime: "",
+    inputEndTime: "",
+  }
+
+  async componentDidMount() {
+    if (this.props.addMode) {
+      this.getNextID();
+    } else {
+      this.refreshTodoData();
+    }
+  }
+
+  getNextID = async () => {
+    const res = await service.todo.nextID();
+    const id = res.data.nextID;
+    this.setState({ id });
+  }
+
+  refreshTodoData = async () => {
+    const res = await service.todo.get(this.props.id);
+    const data = res.data.data;
+    this.setState({ id: data.id });
+    this.setState({ inputTitle: data.title });
+    this.setState({ inputDetail: data.detail });
+    this.setState({ isDeadLine: data.isDeadLine });
+    this.setState({ inputBeginTime: stamp2str(data.begin) });
+    this.setState({ inputEndTime: stamp2str(data.end) });
   }
 
   // 监测标题输入
@@ -38,16 +65,17 @@ class EditTodo extends Component {
   }
 
   // 新建/编辑时外层需要传入不同的函数，但函数名需要均为handleEdit
-  handleEdit = () => {
-    this.props.handleEdit({
-      id: this.props.id,
+  handleEdit = async () => {
+    const data = {
+      id: this.state.id,
       title: this.state.inputTitle,
       detail: this.state.inputDetail,
       isDeadLine: this.state.isDeadLine,
-      begin: dayjs(this.state.inputBeginTime).format("YYYY-MM-DD HH:mm"),
-      end: dayjs(this.state.inputEndTime).format("YYYY-MM-DD HH:mm"),
+      begin: str2stamp(this.state.inputBeginTime),
+      end: str2stamp(this.state.inputEndTime),
       isFinished: false,
-    });
+    };
+    await service.todo.update(data);
     window.history.back(-1);
   }
 
@@ -56,7 +84,7 @@ class EditTodo extends Component {
       <React.Fragment>
         <div className="card div-edit-todo">
           <div className="card-header">
-            <span>{'#' + this.props.id}</span>
+            <span>{'#' + this.state.id}</span>
             <span className="fw-light ms-2">{this.props.addMode ? "新建中" : "编辑中"}</span>
             <span className="float-end"><i className={`me-2 bi bi-${this.state.isDeadLine ? "alarm" : "check2-square"}`}></i></span>
           </div>

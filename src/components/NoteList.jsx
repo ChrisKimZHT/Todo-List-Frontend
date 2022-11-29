@@ -1,11 +1,24 @@
+import dayjs from 'dayjs';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { service } from '../service/service';
+import { stamp2str } from '../utils/formatDatetime';
 import './NoteList.scss'
 
 class NoteList extends Component {
   state = {
+    noteData: [],
     inputTitle: "",
     inputContent: "",
+  }
+
+  async componentDidMount() {
+    await this.refreshNoteData();
+  }
+
+  refreshNoteData = async () => {
+    const res = await service.note.list();
+    this.setState({ noteData: res.data.data });
   }
 
   // 获取输入框标题数据
@@ -18,10 +31,24 @@ class NoteList extends Component {
     this.setState({ inputContent: val.target.value });
   }
 
-  // 调用外层函数保存便签数据
-  handleAdd = () => {
-    this.props.handleAdd(this.state.inputTitle, this.state.inputContent);
+  handleAdd = async () => {
+    const res1 = await service.note.nextID();
+    const id = res1.nextID;
+    const data = {
+      id,
+      title: this.state.inputTitle,
+      content: this.state.inputContent,
+      date: dayjs().unix(),
+      star: false,
+    }
+    await service.note.create(data);
     this.handleReset();
+    this.refreshNoteData();
+  }
+
+  handleStar = async (id) => {
+    await service.note.toggleStar(id);
+    this.refreshNoteData();
   }
 
   // 重置输入框
@@ -36,7 +63,7 @@ class NoteList extends Component {
     return (
       <React.Fragment>
         <div className="div-reminder row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
-          {this.props.noteData.map((data, idx) =>
+          {this.state.noteData.map((data) =>
             <div className="col" key={data.id} style={{ display: !this.props.preview || data.star ? "block" : "none" }}>
               <div className="card">
                 <div className="card-body">
@@ -44,10 +71,10 @@ class NoteList extends Component {
                     <h2 className="h2 card-title">{data.title ? data.title : "无标题"}</h2>
                   </Link>
                   <div className="card-text">{data.content}</div>
-                  <div style={{ display: this.props.preview ? "none" : "inline", cursor: 'pointer' }} onClick={() => this.props.handleStar(idx)}>
+                  <div style={{ display: this.props.preview ? "none" : "inline", cursor: 'pointer' }} onClick={() => this.handleStar(data.id)}>
                     <i className={`bi bi-star${data.star ? "-fill" : ""}`}></i>
                   </div>
-                  <div className="fw-light float-end">{data.date}</div>
+                  <div className="fw-light float-end">{stamp2str(data.date)}</div>
                 </div>
               </div>
             </div>
