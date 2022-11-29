@@ -6,7 +6,7 @@ const TodoPage = () => {
   return (
     <React.Fragment>
       <h1 className="mt-3 mb-3">待办事项</h1>
-      <TodoList preview={false} />
+      <TodoList preview={false} filter={false} />
     </React.Fragment>
   );
 }

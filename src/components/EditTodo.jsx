@@ -64,7 +64,6 @@ class EditTodo extends Component {
     this.setState({ inputEndTime: val.target.value });
   }
 
-  // 新建/编辑时外层需要传入不同的函数，但函数名需要均为handleEdit
   handleEdit = async () => {
     const data = {
       id: this.state.id,
@@ -75,7 +74,11 @@ class EditTodo extends Component {
       end: str2stamp(this.state.inputEndTime),
       isFinished: false,
     };
-    await service.todo.update(data);
+    if (this.props.addMode) {
+      await service.todo.create(data);
+    } else {
+      await service.todo.update(data);
+    }
     window.history.back(-1);
   }
 
