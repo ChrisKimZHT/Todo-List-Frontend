@@ -1,17 +1,29 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import dayjs from 'dayjs';
+import { service } from '../service/service';
+
 import './EditNote.scss';
 
 class EditNote extends Component {
   state = {
+    id: "",
     inputTitle: "",
     inputContent: "",
+    star: false,
   }
 
-  constructor(props) {
-    super();
-    this.state.inputTitle = props.title;
-    this.state.inputContent = props.content;
+  async componentDidMount() {
+    this.refreshNoteData();
+  }
+
+  refreshNoteData = async () => {
+    const res = await service.note.get(this.props.id);
+    const data = res.data.data;
+    this.setState({ id: data.id });
+    this.setState({ inputTitle: data.title });
+    this.setState({ inputContent: data.content });
+    this.setState({ star: data.star });
   }
 
   // 获取输入框标题数据
@@ -24,8 +36,19 @@ class EditNote extends Component {
     this.setState({ inputContent: val.target.value });
   }
 
-  handleEdit = () => {
-    this.props.handleEdit(this.state.inputTitle, this.state.inputContent);
+  handleStar = async (id) => {
+    this.setState({ star: !this.state.star });
+  }
+
+  handleEdit = async () => {
+    const data = {
+      id: this.state.id,
+      title: this.state.inputTitle,
+      content: this.state.inputContent,
+      date: dayjs().unix(),
+      star: this.state.star,
+    }
+    const res = await service.note.update(data);
     window.history.back(-1);
   }
 
@@ -34,10 +57,10 @@ class EditNote extends Component {
       <React.Fragment>
         <div className="card div-edit-note">
           <div className="card-header">
-            <span>{'#' + this.props.id}</span>
+            <span>{'#' + this.state.id}</span>
             <span className="fw-light ms-2">编辑中</span>
-            <span className="float-end" style={{ cursor: 'pointer' }} onClick={this.props.handleStar}>
-              <i className={`bi bi-star${this.props.star ? "-fill" : ""}`}></i>
+            <span className="float-end" style={{ cursor: 'pointer' }} onClick={this.handleStar}>
+              <i className={`bi bi-star${this.state.star ? "-fill" : ""}`}></i>
             </span>
           </div>
           <div className="card-body">
@@ -49,7 +72,7 @@ class EditNote extends Component {
         </div>
         <div className="float-end mt-2">
           <Link to="./../" title="返回" className="btn btn-success"><i className="bi bi-arrow-return-left"></i></Link>
-          <button onClick={this.handleEdit} title="完成" className="btn btn-primary  ms-2 "><i class="bi bi-check-circle"></i></button>
+          <button onClick={this.handleEdit} title="完成" className="btn btn-primary  ms-2 "><i className="bi bi-check-circle"></i></button>
         </div>
       </React.Fragment >
     );

@@ -58,6 +58,61 @@ export const service = {
         params: { id },
       })
     },
-  }
-
+  },
+  note: {
+    create: (data) => {
+      return axios({
+        baseURL,
+        method: "POST",
+        url: "note/create",
+        params: { data },
+      })
+    },
+    nextID: () => {
+      return axios({
+        baseURL,
+        method: "GET",
+        url: "note/nextID",
+      })
+    },
+    delete: (id) => {
+      return axios({
+        baseURL,
+        method: "DELETE",
+        url: "note/delete",
+        params: { id },
+      })
+    },
+    update: (data) => {
+      return axios({
+        baseURL,
+        method: "POST",
+        url: "note/update",
+        params: { data },
+      })
+    },
+    list: () => {
+      return axios({
+        baseURL,
+        method: "GET",
+        url: "note/list",
+      })
+    },
+    get: (id) => {
+      return axios({
+        baseURL,
+        method: "GET",
+        url: "note/get",
+        params: { id },
+      })
+    },
+    toggleStar: (id) => {
+      return axios({
+        baseURL,
+        method: "GET",
+        url: "note/toggleStar",
+        params: { id },
+      })
+    },
+  },
 }

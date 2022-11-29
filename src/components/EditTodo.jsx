@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import dayjs from 'dayjs';
 import { service } from '../service/service';
 import { stamp2str, str2stamp } from '../utils/formatDatetime';
 import './EditTodo.scss';
