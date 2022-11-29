@@ -10,7 +10,7 @@ export const service = {
         baseURL,
         method: "POST",
         url: "todo/create",
-        params: { data },
+        data: { data },
       })
     },
     nextID: () => {
@@ -25,7 +25,7 @@ export const service = {
         baseURL,
         method: "DELETE",
         url: "todo/delete",
-        params: { id },
+        data: { id },
       })
     },
     update: (data) => {
@@ -33,7 +33,7 @@ export const service = {
         baseURL,
         method: "POST",
         url: "todo/update",
-        params: { data },
+        data: { data },
       })
     },
     list: () => {
@@ -66,7 +66,7 @@ export const service = {
         baseURL,
         method: "POST",
         url: "note/create",
-        params: { data },
+        data: { data },
       })
     },
     nextID: () => {
@@ -81,7 +81,7 @@ export const service = {
         baseURL,
         method: "DELETE",
         url: "note/delete",
-        params: { id },
+        data: { id },
       })
     },
     update: (data) => {
@@ -89,7 +89,7 @@ export const service = {
         baseURL,
         method: "POST",
         url: "note/update",
-        params: { data },
+        data: { data },
       })
     },
     list: () => {
