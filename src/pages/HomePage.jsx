@@ -1,6 +1,5 @@
 import dayjs from 'dayjs';
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import Calender from '../components/Calender';
 import NoteList from '../components/NoteList';
 import TodoList from '../components/TodoList';
@@ -10,23 +9,14 @@ class HomePage extends Component {
     year: 0,
     month: 0, // 1~12
     day: 0,   // 1~31
-    todoData: [],
-    filteredTodo: [],
-    noteData: [],
-    filteredNote: [],
   }
 
-  constructor(props) {
+  constructor() {
     super();
     const now = dayjs();
     this.state.year = now.year();
     this.state.month = now.month() + 1; // 1~12
     this.state.day = now.date(); // 1~31
-    this.state.todoData = props.todoData;
-    this.state.noteData = props.noteData;
-    this.state.filteredTodo = props.todoData.filter(x => {
-      return dayjs(x.isDeadLine ? x.end : x.begin).isSame(`${now.year()}-${now.month() + 1}-${now.date()}`, 'day');
-    }); // 默认筛选出今天的待办
   }
 
   inputYearChange = (val) => {
@@ -69,10 +59,6 @@ class HomePage extends Component {
 
   handleSelectDay = (day) => {
     this.setState({ day });
-    const filteredTodo = this.state.todoData.filter(x => {
-      return dayjs(x.isDeadLine ? x.end : x.begin).isSame(`${this.state.year}-${this.state.month}-${day}`, 'day');
-    });
-    this.setState({ filteredTodo });
   }
 
   render() {
@@ -86,9 +72,11 @@ class HomePage extends Component {
               <h3>{`${this.state.year} 年 ${this.state.month} 月 ${this.state.day} 日的待办`}</h3>
               <div className="col-xl-8 col-lg-7 col-md-6">
                 <TodoList
-                  todoData={this.state.filteredTodo}
-                  handleDelete={this.handleDelete}
                   preview={true}
+                  filter={true}
+                  year={this.state.year}
+                  month={this.state.month}
+                  day={this.state.day}
                 />
               </div>
               <div className="col-xl-4 col-lg-5 col-md-6">
@@ -117,10 +105,7 @@ class HomePage extends Component {
         <div className="card mb-3">
           <div className="card-header">收藏便签</div>
           <div className="card-body">
-            <NoteList
-              noteData={this.state.noteData}
-              preview={true}
-            />
+            <NoteList preview={true} />
           </div>
         </div>
       </React.Fragment>
@@ -128,11 +113,4 @@ class HomePage extends Component {
   }
 }
 
-const mapStateToProps = (state, props) => {
-  return {
-    todoData: state.todo.data,
-    noteData: state.note.data,
-  };
-}
-
-export default connect(mapStateToProps)(HomePage);
+export default HomePage;

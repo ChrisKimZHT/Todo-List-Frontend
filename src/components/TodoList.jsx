@@ -2,20 +2,54 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { service } from '../service/service.js';
 import { stamp2str } from '../utils/formatDatetime.js';
+import dayjs from 'dayjs';
 import './TodoList.scss';
 
 class TodoList extends Component {
   state = {
+    year: this.props.year,
+    month: this.props.month,
+    day: this.props.day,
     todoData: [],
+    filteredTodoData: [],
   }
 
   async componentDidMount() {
     await this.refreshTodoData();
   }
 
+  async componentDidUpdate() {
+    if (this.props.filter) {
+      this.setState({ year: this.props.year });
+      this.setState({ month: this.props.month });
+      this.setState({ day: this.props.day });
+      if (this.props.year !== this.state.year ||
+        this.props.month !== this.state.month ||
+        this.props.day !== this.state.day) {
+        await this.refreshFilteredData();
+      }
+    }
+  }
+
   refreshTodoData = async () => {
     const res = await service.todo.list();
-    this.setState({ todoData: res.data.data });
+    const todoData = res.data.data;
+    this.setState({ todoData });
+    if (this.props.filter) {
+      const filteredTodoData = todoData.filter(x => {
+        return dayjs.unix(x.isDeadLine ? x.end : x.begin).isSame(`${this.state.year}-${this.state.month}-${this.state.day}`, 'day');
+      });
+      this.setState({ filteredTodoData });
+    } else {
+      this.setState({ filteredTodoData: todoData });
+    }
+  }
+
+  refreshFilteredData = async () => {
+    const filteredTodoData = this.state.todoData.filter(x => {
+      return dayjs.unix(x.isDeadLine ? x.end : x.begin).isSame(`${this.props.year}-${this.props.month}-${this.props.day}`, 'day');
+    });
+    this.setState({ filteredTodoData });
   }
 
   handleToggleFinish = async (id) => {
@@ -51,7 +85,7 @@ class TodoList extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.state.todoData.map((data) =>
+              {this.state.filteredTodoData.map((data) =>
                 <tr key={data.id} style={{ display: data.isFinished ? "none" : "" }}>
                   <td className="table-type">
                     <i className={`me-2 bi bi-${data.isDeadLine ? "alarm" : "check2-square"}`}></i>
@@ -68,7 +102,7 @@ class TodoList extends Component {
                   </td>
                 </tr>
               )}
-              <tr style={{ display: this.state.todoData.filter(x => x.isFinished === false).length ? "none" : "" }}>
+              <tr style={{ display: this.state.filteredTodoData.filter(x => x.isFinished === false).length ? "none" : "" }}>
                 <td colSpan={4}>无未完成待办</td>
               </tr>
             </tbody>
@@ -94,7 +128,7 @@ class TodoList extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.state.todoData.map((data) =>
+              {this.state.filteredTodoData.map((data) =>
                 <tr key={data.id} style={{ display: data.isFinished ? "" : "none" }}>
                   <td className="table-type">
                     <i className={`me-2 bi bi-${data.isDeadLine ? "alarm" : "check2-square"}`}></i>
@@ -111,7 +145,7 @@ class TodoList extends Component {
                   </td>
                 </tr>
               )}
-              <tr style={{ display: this.state.todoData.filter(x => x.isFinished === true).length ? "none" : "" }}>
+              <tr style={{ display: this.state.filteredTodoData.filter(x => x.isFinished === true).length ? "none" : "" }}>
                 <td colSpan={4}>无已完成待办</td>
               </tr>
             </tbody>
