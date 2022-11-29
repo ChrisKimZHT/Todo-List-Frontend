@@ -41,13 +41,13 @@ class NoteList extends Component {
       date: dayjs().unix(),
       star: false,
     }
-    const res2 = await service.note.create(data);
+    await service.note.create(data);
     this.handleReset();
     this.refreshNoteData();
   }
 
   handleStar = async (id) => {
-    const res = await service.note.toggleStar(id);
+    await service.note.toggleStar(id);
     this.refreshNoteData();
   }
 

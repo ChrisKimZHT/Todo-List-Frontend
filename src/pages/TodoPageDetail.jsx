@@ -10,7 +10,7 @@ const TodoPageDetail = () => {
   const id = useParams().id;
 
   const handleDelete = async () => {
-    const res = await service.todo.delete(id)
+    await service.todo.delete(id)
     window.history.back(-1);
   }
 

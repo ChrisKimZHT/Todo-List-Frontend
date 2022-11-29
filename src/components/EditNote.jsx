@@ -48,7 +48,7 @@ class EditNote extends Component {
       date: dayjs().unix(),
       star: this.state.star,
     }
-    const res = await service.note.update(data);
+    await service.note.update(data);
     window.history.back(-1);
   }
 

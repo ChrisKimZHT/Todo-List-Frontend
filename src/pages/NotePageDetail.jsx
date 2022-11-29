@@ -9,7 +9,7 @@ const NotePageDetail = () => {
   const id = useParams().id;
 
   const handleDelete = async () => {
-    const res = await service.note.delete(id);
+    await service.note.delete(id);
     window.history.back(-1);
   }
 

@@ -75,7 +75,7 @@ class EditTodo extends Component {
       end: str2stamp(this.state.inputEndTime),
       isFinished: false,
     };
-    const res = await service.todo.update(data);
+    await service.todo.update(data);
     window.history.back(-1);
   }
 

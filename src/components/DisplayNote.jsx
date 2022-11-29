@@ -6,11 +6,7 @@ import './DisplayNote.scss';
 const DisplayNote = (props) => {
   const [noteData, setNoteData] = useState({});
 
-  useEffect(() => {
-    refreshData();
-  }, []);
-
-  const refreshData = async () => {
+  const refreshData = () => {
     const fetchData = async () => {
       const res = await service.note.get(props.id);
       setNoteData(res.data.data);
@@ -18,8 +14,10 @@ const DisplayNote = (props) => {
     fetchData();
   }
 
+  useEffect(refreshData, [props.id]);
+
   const handleStar = async () => {
-    const res = await service.note.toggleStar(props.id);
+    await service.note.toggleStar(props.id);
     refreshData();
   }
 

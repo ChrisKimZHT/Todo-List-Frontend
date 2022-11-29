@@ -6,13 +6,16 @@ import './DisplayTodo.scss';
 const DisplayTodo = (props) => {
   const [todoData, setTodoData] = useState({});
 
-  useEffect(() => {
+
+  const refreshData = () => {
     const fetchData = async () => {
       const res = await service.todo.get(props.id);
       setTodoData(res.data.data);
     }
     fetchData();
-  }, []);
+  }
+
+  useEffect(refreshData, [props.id]);
 
   return (
     <div className="card div-display-todo">
