@@ -86,21 +86,23 @@ class TodoList extends Component {
             </thead>
             <tbody>
               {this.state.filteredTodoData.map((data) =>
-                <tr key={data.id} style={{ display: data.isFinished ? "none" : "" }}>
-                  <td className="table-type">
-                    <i className={`me-2 bi bi-${data.isDeadLine ? "alarm" : "check2-square"}`}></i>
-                  </td>
-                  <td className="table-date" style={{ display: this.props.preview ? "none" : "" }}>
-                    {stamp2str(data.isDeadLine ? data.end : data.begin)}
-                  </td>
-                  <td className="table-title">
-                    <Link to={`/todo/${data.id}`}>{data.title ? data.title : "无标题"}</Link>
-                  </td>
-                  <td className="table-finish" align="center" onClick={() => this.handleToggleFinish(data.id)}
-                    style={{ display: this.props.preview ? "none" : "", cursor: 'pointer' }}>
-                    <i className="bi bi-check-circle"></i>
-                  </td>
-                </tr>
+                data.isFinished ? "" : (
+                  <tr key={data.id}>
+                    <td className="table-type">
+                      <i className={`me-2 bi bi-${data.isDeadLine ? "alarm" : "check2-square"}`}></i>
+                    </td>
+                    <td className="table-date" style={{ display: this.props.preview ? "none" : "" }}>
+                      {stamp2str(data.isDeadLine ? data.end : data.begin)}
+                    </td>
+                    <td className="table-title">
+                      <Link to={`/todo/${data.id}`}>{data.title ? data.title : "无标题"}</Link>
+                    </td>
+                    <td className="table-finish" align="center" onClick={() => this.handleToggleFinish(data.id)}
+                      style={{ display: this.props.preview ? "none" : "", cursor: 'pointer' }}>
+                      <i className="bi bi-check-circle"></i>
+                    </td>
+                  </tr>
+                )
               )}
               <tr style={{ display: this.state.filteredTodoData.filter(x => x.isFinished === false).length ? "none" : "" }}>
                 <td colSpan={4}>无未完成待办</td>
@@ -129,21 +131,23 @@ class TodoList extends Component {
             </thead>
             <tbody>
               {this.state.filteredTodoData.map((data) =>
-                <tr key={data.id} style={{ display: data.isFinished ? "" : "none" }}>
-                  <td className="table-type">
-                    <i className={`me-2 bi bi-${data.isDeadLine ? "alarm" : "check2-square"}`}></i>
-                  </td>
-                  <td className="table-date" style={{ display: this.props.preview ? "none" : "" }}>
-                    {stamp2str(data.isDeadLine ? data.end : data.begin)}
-                  </td>
-                  <td className="table-title">
-                    <Link to={`/todo/${data.id}`}>{data.title ? data.title : "无标题"}</Link>
-                  </td>
-                  <td className="table-finish" align="center" onClick={() => this.handleToggleFinish(data.id)}
-                    style={{ display: this.props.preview ? "none" : "", cursor: 'pointer' }}>
-                    <i className="bi bi-x-circle"></i>
-                  </td>
-                </tr>
+                data.isFinished ? (
+                  <tr key={data.id} >
+                    <td className="table-type">
+                      <i className={`me-2 bi bi-${data.isDeadLine ? "alarm" : "check2-square"}`}></i>
+                    </td>
+                    <td className="table-date" style={{ display: this.props.preview ? "none" : "" }}>
+                      {stamp2str(data.isDeadLine ? data.end : data.begin)}
+                    </td>
+                    <td className="table-title">
+                      <Link to={`/todo/${data.id}`}>{data.title ? data.title : "无标题"}</Link>
+                    </td>
+                    <td className="table-finish" align="center" onClick={() => this.handleToggleFinish(data.id)}
+                      style={{ display: this.props.preview ? "none" : "", cursor: 'pointer' }}>
+                      <i className="bi bi-x-circle"></i>
+                    </td>
+                  </tr>
+                ) : ""
               )}
               <tr style={{ display: this.state.filteredTodoData.filter(x => x.isFinished === true).length ? "none" : "" }}>
                 <td colSpan={4}>无已完成待办</td>
