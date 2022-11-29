@@ -4,12 +4,19 @@ const baseURL = "http://127.0.0.1:4523/m1/2003149-0-default"
 
 export const service = {
   todo: {
-    create: (todoData) => {
+    create: (data) => {
       return axios({
         baseURL,
         method: "POST",
         url: "todo/create",
-        params: { data: todoData },
+        params: { data },
+      })
+    },
+    nextID: () => {
+      return axios({
+        baseURL,
+        method: "GET",
+        url: "todo/nextID",
       })
     },
     delete: (id) => {
@@ -18,6 +25,14 @@ export const service = {
         method: "DELETE",
         url: "todo/delete",
         params: { id },
+      })
+    },
+    update: (data) => {
+      return axios({
+        baseURL,
+        method: "POST",
+        url: "todo/update",
+        params: { data },
       })
     },
     list: () => {

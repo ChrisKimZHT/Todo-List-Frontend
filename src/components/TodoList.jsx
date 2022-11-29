@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { service } from '../service/service.js';
-import formatDatetime from '../utils/formatDatetime.js';
+import { stamp2str } from '../utils/formatDatetime.js';
 import './TodoList.scss';
 
 class TodoList extends Component {
@@ -57,7 +57,7 @@ class TodoList extends Component {
                     <i className={`me-2 bi bi-${data.isDeadLine ? "alarm" : "check2-square"}`}></i>
                   </td>
                   <td className="table-date" style={{ display: this.props.preview ? "none" : "" }}>
-                    {formatDatetime(data.isDeadLine ? data.end : data.begin)}
+                    {stamp2str(data.isDeadLine ? data.end : data.begin)}
                   </td>
                   <td className="table-title">
                     <Link to={`/todo/${data.id}`}>{data.title ? data.title : "无标题"}</Link>
@@ -100,7 +100,7 @@ class TodoList extends Component {
                     <i className={`me-2 bi bi-${data.isDeadLine ? "alarm" : "check2-square"}`}></i>
                   </td>
                   <td className="table-date" style={{ display: this.props.preview ? "none" : "" }}>
-                    {formatDatetime(data.isDeadLine ? data.end : data.begin)}
+                    {stamp2str(data.isDeadLine ? data.end : data.begin)}
                   </td>
                   <td className="table-title">
                     <Link to={`/todo/${data.id}`}>{data.title ? data.title : "无标题"}</Link>
