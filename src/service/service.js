@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const baseURL = "http://127.0.0.1:4523/m1/2003149-0-default"
+// 在config.js中填写
+const baseURL = window.Config.apiURL;
 
 export const service = {
   todo: {
