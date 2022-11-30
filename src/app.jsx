@@ -7,6 +7,7 @@ import NotePage from './pages/NotePage';
 import NotePageDetail from './pages/NotePageDetail';
 import TodoPageDetail from './pages/TodoPageDetail';
 import NewTodoPage from './pages/NewTodoPage';
+import AlertBox from './components/AlertBox';
 
 class App extends Component {
   state = {}
@@ -14,6 +15,7 @@ class App extends Component {
     return (
       <React.Fragment>
         <NavBar />
+        <AlertBox />
         <div className='container'>
           <Routes>
             <Route path='/' element={<HomePage />}></Route>
