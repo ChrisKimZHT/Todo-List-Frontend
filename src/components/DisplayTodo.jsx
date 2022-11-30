@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { service } from '../service/service.js';
 import { stamp2str } from '../utils/formatDatetime.js';
+import useAlert from '../utils/useAlert.js';
 import './DisplayTodo.scss';
 
 const DisplayTodo = (props) => {
   const [todoData, setTodoData] = useState({});
-
+  const { setAlert } = useAlert();
 
   const refreshData = () => {
     const fetchData = async () => {
-      const res = await service.todo.get(props.id);
-      setTodoData(res.data.data);
+      await service.todo.get(props.id)
+        .then(res => {
+          setTodoData(res.data.data);
+        })
+        .catch(err => setAlert(`[ERROR]: ${err.message} in /todo/get`, "danger", 0));
     }
     fetchData();
   }
 
-  useEffect(refreshData, [props.id]);
+  useEffect(refreshData, [props.id, setAlert]);
 
   return (
     <div className="card div-display-todo">

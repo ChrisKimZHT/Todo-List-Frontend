@@ -3,9 +3,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { service } from '../service/service';
 import { stamp2str } from '../utils/formatDatetime';
+import useAlert from '../utils/useAlert';
 import './NoteList.scss'
 
-class NoteList extends Component {
+class NoteListClass extends Component {
   state = {
     noteData: [],
     inputTitle: "",
@@ -17,8 +18,9 @@ class NoteList extends Component {
   }
 
   refreshNoteData = async () => {
-    const res = await service.note.list();
-    this.setState({ noteData: res.data.data });
+    await service.note.list()
+      .then(res => this.setState({ noteData: res.data.data }))
+      .catch(err => this.props.setAlert(`[ERROR]: ${err.message} in /note/list`, "danger", 0));
   }
 
   // 获取输入框标题数据
@@ -32,23 +34,26 @@ class NoteList extends Component {
   }
 
   handleAdd = async () => {
-    const res1 = await service.note.nextID();
-    const id = res1.nextID;
     const data = {
-      id,
       title: this.state.inputTitle,
       content: this.state.inputContent,
       date: dayjs().unix(),
       star: false,
     }
-    await service.note.create(data);
-    this.handleReset();
-    this.refreshNoteData();
+    await service.note.create(data)
+      .then(() => {
+        this.handleReset();
+        this.refreshNoteData();
+      })
+      .catch(err => this.props.setAlert(`[ERROR]: ${err.message} in /note/create`, "danger", 0));
   }
 
   handleStar = async (id) => {
-    await service.note.toggleStar(id);
-    this.refreshNoteData();
+    await service.note.toggleStar(id)
+      .then(() => {
+        this.refreshNoteData();
+      })
+      .catch(err => this.props.setAlert(`[ERROR]: ${err.message} in /note/toggleStar`, "danger", 0));
   }
 
   // 重置输入框
@@ -97,6 +102,13 @@ class NoteList extends Component {
       </React.Fragment>
     );
   }
+}
+
+const NoteList = (props) => {
+  const { setAlert } = useAlert();
+  return (
+    <NoteListClass {...props} setAlert={setAlert} />
+  );
 }
 
 export default NoteList;

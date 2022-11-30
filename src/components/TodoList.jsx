@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { service } from '../service/service.js';
 import { stamp2str } from '../utils/formatDatetime.js';
-import dayjs from 'dayjs';
+import useAlert from '../utils/useAlert.js'
 import './TodoList.scss';
 
-class TodoList extends Component {
+class TodoListClass extends Component {
   state = {
     todoData: [],
   }
@@ -16,25 +16,33 @@ class TodoList extends Component {
 
   refreshTodoData = async () => {
     if (this.props.filter) {
-      const res = await service.todo.getToday(this.props.year, this.props.month, this.props.day);
-      const todoData = res.data.data;
-      this.setState({ todoData });
+      await service.todo.getToday(this.props.year, this.props.month, this.props.day)
+        .then(res => {
+          const todoData = res.data.data;
+          this.setState({ todoData });
+        })
+        .catch(err => this.props.setAlert(`[ERROR]: ${err.message} in /todo/getToday`, "danger", 0));
     } else {
-      const res = await service.todo.list();
-      const todoData = res.data.data;
-      this.setState({ todoData });
+      await service.todo.list()
+        .then(res => {
+          const todoData = res.data.data;
+          this.setState({ todoData });
+        })
+        .catch(err => this.props.setAlert(`[ERROR]: ${err.message} in /todo/list`, "danger", 0));
     }
   }
 
   handleToggleFinish = async (id) => {
-    await service.todo.toggleFinish(id);
-    await this.refreshTodoData();
+    await service.todo.toggleFinish(id)
+      .catch(err => this.props.setAlert(`[ERROR]: ${err.message} in /todo/toggleFinish`, "danger", 0));
+    await this.refreshTodoData()
   }
 
   handleDeleteFinished = async () => {
     for (const todo of this.state.todoData) {
       if (todo.isFinished === true) {
         await service.todo.delete(todo.id)
+          .catch(err => this.props.setAlert(`[ERROR]: ${err.message} in /todo/delete`, "danger", 0));
       }
     }
     await this.refreshTodoData();
@@ -132,6 +140,13 @@ class TodoList extends Component {
       </React.Fragment >
     );
   }
+}
+
+const TodoList = (props) => {
+  const { setAlert } = useAlert();
+  return (
+    <TodoListClass {...props} setAlert={setAlert} />
+  );
 }
 
 export default TodoList;

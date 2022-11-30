@@ -1,20 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { service } from '../service/service.js';
 import { stamp2str } from '../utils/formatDatetime';
+import useAlert from '../utils/useAlert.js';
 import './DisplayNote.scss';
 
 const DisplayNote = (props) => {
   const [noteData, setNoteData] = useState({});
+  const { setAlert } = useAlert();
 
   const refreshData = () => {
     const fetchData = async () => {
-      const res = await service.note.get(props.id);
-      setNoteData(res.data.data);
+      await service.note.get(props.id)
+        .then(res => {
+          setNoteData(res.data.data);
+        })
+        .catch(err => setAlert(`[ERROR]: ${err.message} in /todo/nextID`, "danger", 0));
     }
     fetchData();
   }
 
-  useEffect(refreshData, [props.id]);
+  useEffect(refreshData, [props.id, setAlert]);
 
   const handleStar = async () => {
     await service.note.toggleStar(props.id);

@@ -4,8 +4,9 @@ import dayjs from 'dayjs';
 import { service } from '../service/service';
 
 import './EditNote.scss';
+import useAlert from '../utils/useAlert';
 
-class EditNote extends Component {
+class EditNoteClass extends Component {
   state = {
     id: "",
     inputTitle: "",
@@ -18,12 +19,15 @@ class EditNote extends Component {
   }
 
   refreshNoteData = async () => {
-    const res = await service.note.get(this.props.id);
-    const data = res.data.data;
-    this.setState({ id: data.id });
-    this.setState({ inputTitle: data.title });
-    this.setState({ inputContent: data.content });
-    this.setState({ star: data.star });
+    await service.note.get(this.props.id)
+      .then(res => {
+        const data = res.data.data;
+        this.setState({ id: data.id });
+        this.setState({ inputTitle: data.title });
+        this.setState({ inputContent: data.content });
+        this.setState({ star: data.star });
+      })
+      .catch(err => this.props.setAlert(`[ERROR]: ${err.message} in /note/get`, "danger", 0));
   }
 
   // 获取输入框标题数据
@@ -48,7 +52,8 @@ class EditNote extends Component {
       date: dayjs().unix(),
       star: this.state.star,
     }
-    await service.note.update(data);
+    await service.note.update(data)
+      .catch(err => this.props.setAlert(`[ERROR]: ${err.message} in /note/update`, "danger", 0));
     window.history.back(-1);
   }
 
@@ -77,6 +82,13 @@ class EditNote extends Component {
       </React.Fragment >
     );
   }
+}
+
+const EditNote = (props) => {
+  const { setAlert } = useAlert();
+  return (
+    <EditNoteClass {...props} setAlert={setAlert} />
+  );
 }
 
 export default EditNote;

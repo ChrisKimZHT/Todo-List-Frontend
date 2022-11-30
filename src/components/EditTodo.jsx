@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { service } from '../service/service';
 import { stamp2str, str2stamp } from '../utils/formatDatetime';
+import useAlert from '../utils/useAlert';
 import './EditTodo.scss';
 
-class EditTodo extends Component {
+class EditTodoClass extends Component {
   state = {
     id: "",
     inputTitle: "",
@@ -23,20 +24,26 @@ class EditTodo extends Component {
   }
 
   getNextID = async () => {
-    const res = await service.todo.nextID();
-    const id = res.data.nextID;
-    this.setState({ id });
+    await service.todo.nextID()
+      .then(res => {
+        const id = res.data.nextID;
+        this.setState({ id });
+      })
+      .catch(err => this.props.setAlert(`[ERROR]: ${err.message} in /todo/nextID`, "danger", 0));
   }
 
   refreshTodoData = async () => {
-    const res = await service.todo.get(this.props.id);
-    const data = res.data.data;
-    this.setState({ id: data.id });
-    this.setState({ inputTitle: data.title });
-    this.setState({ inputDetail: data.detail });
-    this.setState({ isDeadLine: data.isDeadLine });
-    this.setState({ inputBeginTime: stamp2str(data.begin) });
-    this.setState({ inputEndTime: stamp2str(data.end) });
+    await service.todo.get(this.props.id)
+      .then(res => {
+        const data = res.data.data;
+        this.setState({ id: data.id });
+        this.setState({ inputTitle: data.title });
+        this.setState({ inputDetail: data.detail });
+        this.setState({ isDeadLine: data.isDeadLine });
+        this.setState({ inputBeginTime: stamp2str(data.begin) });
+        this.setState({ inputEndTime: stamp2str(data.end) });
+      })
+      .catch(err => this.props.setAlert(`[ERROR]: ${err.message} in /todo/get`, "danger", 0));
   }
 
   // 监测标题输入
@@ -75,9 +82,11 @@ class EditTodo extends Component {
       isFinished: false,
     };
     if (this.props.addMode) {
-      await service.todo.create(data);
+      await service.todo.create(data)
+        .catch(err => this.props.setAlert(`[ERROR]: ${err.message} in /todo/create`, "danger", 0));
     } else {
-      await service.todo.update(data);
+      await service.todo.update(data)
+        .catch(err => this.props.setAlert(`[ERROR]: ${err.message} in /todo/update`, "danger", 0));
     }
     window.history.back(-1);
   }
@@ -123,6 +132,13 @@ class EditTodo extends Component {
       </React.Fragment>
     );
   }
+}
+
+const EditTodo = (props) => {
+  const { setAlert } = useAlert();
+  return (
+    <EditTodoClass {...props} setAlert={setAlert} />
+  );
 }
 
 export default EditTodo;
