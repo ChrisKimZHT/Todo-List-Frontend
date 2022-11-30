@@ -72,6 +72,7 @@ class HomePage extends Component {
               <h3>{`${this.state.year} 年 ${this.state.month} 月 ${this.state.day} 日的待办`}</h3>
               <div className="col-xl-8 col-lg-7 col-md-6">
                 <TodoList
+                  key={this.state.year + this.state.month + this.state.day} // 日期变化则更新
                   preview={true}
                   filter={true}
                   year={this.state.year}

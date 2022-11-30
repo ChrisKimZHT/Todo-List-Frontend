@@ -51,6 +51,14 @@ export const service = {
         params: { id },
       })
     },
+    getToday: (year, month, day) => {
+      return axios({
+        baseURL,
+        method: "GET",
+        url: "todo/getToday",
+        params: { year, month, day },
+      })
+    },
     toggleFinish: (id) => {
       return axios({
         baseURL,

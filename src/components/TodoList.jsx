@@ -7,49 +7,23 @@ import './TodoList.scss';
 
 class TodoList extends Component {
   state = {
-    year: this.props.year,
-    month: this.props.month,
-    day: this.props.day,
     todoData: [],
-    filteredTodoData: [],
   }
 
   async componentDidMount() {
     await this.refreshTodoData();
   }
 
-  async componentDidUpdate() {
-    if (this.props.filter) {
-      this.setState({ year: this.props.year });
-      this.setState({ month: this.props.month });
-      this.setState({ day: this.props.day });
-      if (this.props.year !== this.state.year ||
-        this.props.month !== this.state.month ||
-        this.props.day !== this.state.day) {
-        await this.refreshFilteredData();
-      }
-    }
-  }
-
   refreshTodoData = async () => {
-    const res = await service.todo.list();
-    const todoData = res.data.data;
-    this.setState({ todoData });
     if (this.props.filter) {
-      const filteredTodoData = todoData.filter(x => {
-        return dayjs.unix(x.isDeadLine ? x.end : x.begin).isSame(`${this.state.year}-${this.state.month}-${this.state.day}`, 'day');
-      });
-      this.setState({ filteredTodoData });
+      const res = await service.todo.getToday(this.props.year, this.props.month, this.props.day);
+      const todoData = res.data.data;
+      this.setState({ todoData });
     } else {
-      this.setState({ filteredTodoData: todoData });
+      const res = await service.todo.list();
+      const todoData = res.data.data;
+      this.setState({ todoData });
     }
-  }
-
-  refreshFilteredData = async () => {
-    const filteredTodoData = this.state.todoData.filter(x => {
-      return dayjs.unix(x.isDeadLine ? x.end : x.begin).isSame(`${this.props.year}-${this.props.month}-${this.props.day}`, 'day');
-    });
-    this.setState({ filteredTodoData });
   }
 
   handleToggleFinish = async (id) => {
@@ -85,7 +59,7 @@ class TodoList extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.state.filteredTodoData.map((data) =>
+              {this.state.todoData.map((data) =>
                 data.isFinished ? "" : (
                   <tr key={data.id}>
                     <td className="table-type">
@@ -104,7 +78,7 @@ class TodoList extends Component {
                   </tr>
                 )
               )}
-              <tr style={{ display: this.state.filteredTodoData.filter(x => x.isFinished === false).length ? "none" : "" }}>
+              <tr style={{ display: this.state.todoData.filter(x => x.isFinished === false).length ? "none" : "" }}>
                 <td colSpan={4}>无未完成待办</td>
               </tr>
             </tbody>
@@ -130,7 +104,7 @@ class TodoList extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.state.filteredTodoData.map((data) =>
+              {this.state.todoData.map((data) =>
                 data.isFinished ? (
                   <tr key={data.id} >
                     <td className="table-type">
@@ -149,7 +123,7 @@ class TodoList extends Component {
                   </tr>
                 ) : ""
               )}
-              <tr style={{ display: this.state.filteredTodoData.filter(x => x.isFinished === true).length ? "none" : "" }}>
+              <tr style={{ display: this.state.todoData.filter(x => x.isFinished === true).length ? "none" : "" }}>
                 <td colSpan={4}>无已完成待办</td>
               </tr>
             </tbody>
