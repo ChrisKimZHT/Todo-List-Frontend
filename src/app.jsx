@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import NavBar from './pages/NavBar';
+import NavBar from './components/NavBar';
 import HomePage from './pages/HomePage';
 import TodoPage from './pages/TodoPage'
 import NotePage from './pages/NotePage';
