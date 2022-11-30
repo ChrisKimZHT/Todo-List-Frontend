@@ -9,7 +9,7 @@ class EditTodo extends Component {
     id: "",
     inputTitle: "",
     inputDetail: "",
-    isDeadLine: "",
+    isDeadLine: false,
     inputBeginTime: "",
     inputEndTime: "",
   }
