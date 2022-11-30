@@ -8,7 +8,7 @@ import useAlert from '../utils/useAlert';
 
 class EditNoteClass extends Component {
   state = {
-    id: "",
+    id: 0,
     inputTitle: "",
     inputContent: "",
     star: false,

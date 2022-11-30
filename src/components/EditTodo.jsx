@@ -7,12 +7,12 @@ import './EditTodo.scss';
 
 class EditTodoClass extends Component {
   state = {
-    id: "",
+    id: 0,
     inputTitle: "",
     inputDetail: "",
     isDeadLine: false,
-    inputBeginTime: "",
-    inputEndTime: "",
+    inputBeginTime: 0,
+    inputEndTime: 0,
   }
 
   async componentDidMount() {
