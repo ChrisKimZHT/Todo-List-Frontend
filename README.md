@@ -1,3 +1,7 @@
-# Todo-List
+# Todo-List-Frontend
 
-我的前端入门项目。使用 JavaScript React 编写，采用 Bootstrap 前端框架，数据使用 Redux 和 Redux-Persist 保存在 LocalStorage 中，暂未对接后端（还没学）.
+我的 React 前端练习项目 - 待办事项。使用 JavaScript React 编写，采用 Bootstrap 前端框架。
+
+后端使用 Python Flask 编写，仓库地址：https://github.com/ChrisKimZHT/Todo-List-Backend
+
+注：后端地址需要在 config.js 中配置
