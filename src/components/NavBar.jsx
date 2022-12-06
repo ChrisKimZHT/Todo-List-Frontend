@@ -15,9 +15,9 @@ const NavBar = () => {
         </Link>
         <div className="collapse navbar-collapse">
           <div className="navbar-nav">
-            <Link className={`nav-link ${currentPath === "/" ? "active" : ""}`} aria-current="page" to="/">首页</Link>
-            <Link className={`nav-link ${currentPath.substring(0, 5) === "/todo" ? "active" : ""}`} to="/todo">待办</Link>
-            <Link className={`nav-link ${currentPath.substring(0, 5) === "/note" ? "active" : ""}`} to="/note">便签</Link>
+            <Link className={`nav-link ${localStorage.getItem("token") === null ? "disabled" : ""} ${currentPath.substring(0, 5) === "/home" ? "active" : ""}`} to="/home">首页</Link>
+            <Link className={`nav-link ${localStorage.getItem("token") === null ? "disabled" : ""} ${currentPath.substring(0, 5) === "/todo" ? "active" : ""}`} to="/todo">待办</Link>
+            <Link className={`nav-link ${localStorage.getItem("token") === null ? "disabled" : ""} ${currentPath.substring(0, 5) === "/note" ? "active" : ""}`} to="/note">便签</Link>
           </div>
         </div>
       </div>
