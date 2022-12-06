@@ -10,11 +10,11 @@ import NotePageDetail from './pages/NotePageDetail';
 import TodoPageDetail from './pages/TodoPageDetail';
 import NewTodoPage from './pages/NewTodoPage';
 import AlertBox from './components/AlertBox';
-import { initHeader } from './service/service';
+import { checkLogin } from './service/service';
 
 class App extends Component {
   render() {
-    initHeader();
+    checkLogin();
     return (
       <React.Fragment>
         <NavBar />

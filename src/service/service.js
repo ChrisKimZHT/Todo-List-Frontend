@@ -3,9 +3,18 @@ import axios from "axios";
 // 在config.js中填写
 const baseURL = window.Config.apiURL;
 
-export const initHeader = () => {
-  if (localStorage.getItem("token")) {
+export const checkLogin = () => {
+  if (localStorage.getItem("token") !== null) {
     axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`;
+    service.auth.check().catch(
+      () => {
+        localStorage.clear("token");
+        localStorage.clear("username");
+        localStorage.clear("uid");
+        window.location.reload();
+        window.location.href = "./login";
+      }
+    )
   }
 }
 
