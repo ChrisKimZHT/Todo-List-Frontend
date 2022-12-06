@@ -38,7 +38,7 @@ class NoteListClass extends Component {
       title: this.state.inputTitle,
       content: this.state.inputContent,
       date: dayjs().unix(),
-      star: false,
+      isStared: false,
     }
     await service.note.create(data)
       .then(() => {
@@ -69,7 +69,7 @@ class NoteListClass extends Component {
       <React.Fragment>
         <div className="div-reminder row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
           {this.state.noteData.map((data) =>
-            <div className="col" key={data.id} style={{ display: !this.props.preview || data.star ? "block" : "none" }}>
+            <div className="col" key={data.id} style={{ display: !this.props.preview || data.isStared ? "block" : "none" }}>
               <div className="card">
                 <div className="card-body">
                   <Link className="detail-link" to={`/note/${data.id}`}>
@@ -77,7 +77,7 @@ class NoteListClass extends Component {
                   </Link>
                   <div className="card-text">{data.content}</div>
                   <div style={{ display: this.props.preview ? "none" : "inline", cursor: 'pointer' }} onClick={() => this.handleStar(data.id)}>
-                    <i className={`bi bi-star${data.star ? "-fill" : ""}`}></i>
+                    <i className={`bi bi-star${data.isStared ? "-fill" : ""}`}></i>
                   </div>
                   <div className="fw-light float-end">{stamp2str(data.date)}</div>
                 </div>

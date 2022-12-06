@@ -11,7 +11,7 @@ class EditNoteClass extends Component {
     id: 0,
     inputTitle: "",
     inputContent: "",
-    star: false,
+    isStared: false,
   }
 
   async componentDidMount() {
@@ -25,7 +25,7 @@ class EditNoteClass extends Component {
         this.setState({ id: data.id });
         this.setState({ inputTitle: data.title });
         this.setState({ inputContent: data.content });
-        this.setState({ star: data.star });
+        this.setState({ isStared: data.isStared });
       })
       .catch(err => this.props.setAlert(`[ERROR]: ${err.message} in /note/get`, "danger", 0));
   }
@@ -41,7 +41,7 @@ class EditNoteClass extends Component {
   }
 
   handleStar = async (id) => {
-    this.setState({ star: !this.state.star });
+    this.setState({ isStared: !this.state.isStared });
   }
 
   handleEdit = async () => {
@@ -50,7 +50,7 @@ class EditNoteClass extends Component {
       title: this.state.inputTitle,
       content: this.state.inputContent,
       date: dayjs().unix(),
-      star: this.state.star,
+      isStared: this.state.isStared,
     }
     await service.note.update(data)
       .catch(err => this.props.setAlert(`[ERROR]: ${err.message} in /note/update`, "danger", 0));
@@ -65,7 +65,7 @@ class EditNoteClass extends Component {
             <span>{'#' + this.state.id}</span>
             <span className="fw-light ms-2">编辑中</span>
             <span className="float-end" style={{ cursor: 'pointer' }} onClick={this.handleStar}>
-              <i className={`bi bi-star${this.state.star ? "-fill" : ""}`}></i>
+              <i className={`bi bi-star${this.state.isStared ? "-fill" : ""}`}></i>
             </span>
           </div>
           <div className="card-body">

@@ -32,7 +32,7 @@ const DisplayNote = (props) => {
         <span>{'#' + noteData.id}</span>
         <span className="fw-light ms-2">{stamp2str(noteData.date)}</span>
         <span className="float-end" style={{ cursor: 'pointer' }} onClick={handleStar}>
-          <i className={`bi bi-star${noteData.star ? "-fill" : ""}`}></i>
+          <i className={`bi bi-star${noteData.isStared ? "-fill" : ""}`}></i>
         </span>
       </div>
       <div className="card-body">
