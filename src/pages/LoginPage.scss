@@ -1,0 +1,27 @@
+.div-login {
+    margin-top: 12vh;
+    margin-left: 30%;
+    margin-right: 30%;
+
+    @media (max-width: 1399.98px) {
+        margin-top: 12vh;
+        margin-left: 27%;
+        margin-right: 27%;
+    }
+
+    @media (max-width: 1199.98px) {
+        margin-top: 12vh;
+        margin-left: 23%;
+        margin-right: 23%;
+    }
+
+    @media (max-width: 991.98px) {
+        margin-top: 12vh;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    a {
+        text-decoration: none;
+    }
+}
