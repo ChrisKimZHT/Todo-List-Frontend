@@ -59,13 +59,6 @@ export const service = {
         data: { data },
       })
     },
-    nextID: () => {
-      return axios({
-        baseURL,
-        method: "GET",
-        url: "todo/nextID",
-      })
-    },
     delete: (id) => {
       return axios({
         baseURL,
@@ -121,13 +114,6 @@ export const service = {
         method: "POST",
         url: "note/create",
         data: { data },
-      })
-    },
-    nextID: () => {
-      return axios({
-        baseURL,
-        method: "GET",
-        url: "note/nextID",
       })
     },
     delete: (id) => {

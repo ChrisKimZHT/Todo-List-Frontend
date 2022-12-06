@@ -16,20 +16,9 @@ class EditTodoClass extends Component {
   }
 
   async componentDidMount() {
-    if (this.props.addMode) {
-      this.getNextID();
-    } else {
+    if (!this.props.addMode) {
       this.refreshTodoData();
     }
-  }
-
-  getNextID = async () => {
-    await service.todo.nextID()
-      .then(res => {
-        const id = res.data.nextID;
-        this.setState({ id });
-      })
-      .catch(err => this.props.setAlert(`[ERROR]: ${err.message} in /todo/nextID`, "danger", 0));
   }
 
   refreshTodoData = async () => {
